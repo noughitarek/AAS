@@ -3,7 +3,7 @@ import { MenuItem } from '@/types/MenuItem'
 import { BarChart2Icon, CornerDownRight, XCircle } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@headlessui/react';
-import Icon from '@/Base-components/Icon';
+import Icon from '@/Components/Icon';
 
 interface MobileMenuProps {
     menuItems: MenuItem[];
@@ -15,7 +15,7 @@ const MobileMenu:React.FC<MobileMenuProps> = ({menuItems}) => {
         <div className={"mobile-menu md:hidden " + (menuActive ? "mobile-menu--active" : "")}>
             <div className="mobile-menu-bar">
                 <Link href="/" className="flex mr-auto">
-                    <img className="w-1/6" src="/dist/images/fmap.png"/>
+                    <img className="w-1/6" src="/dist/images/aas.png"/>
                 </Link>
                 <Button className="mobile-menu-toggler mr-2" onClick={()=>setMenuActive(true)}> <BarChart2Icon className="w-8 h-8 text-white transform -rotate-90"/> </Button>
             </div>

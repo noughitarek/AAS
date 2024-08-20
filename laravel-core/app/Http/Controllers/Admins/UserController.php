@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admins;
 
 use App\Models\User;
 use Inertia\Inertia;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 
@@ -20,7 +21,7 @@ class UserController extends Controller
         ->orderBy('id', 'desc')
         ->get()->toArray();
         
-        return Inertia::render('Users/Index', [
+        return Inertia::render('Admins/Users/Index', [
             'users' => $users,
             'from' => 1,
             'to' => count($users),

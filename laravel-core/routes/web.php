@@ -3,18 +3,10 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\AccountController;
-use App\Http\Controllers\PostingController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\SettingController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PhotosGroupController;
-use App\Http\Controllers\TitlesGroupController;
-use App\Http\Controllers\AccountsGroupController;
-use App\Http\Controllers\PostingsCategoryController;
-use App\Http\Controllers\DescriptionsGroupController;
-
+use App\Http\Controllers\Admins\UserController;
+use App\Http\Controllers\Admins\ProfileController;
+use App\Http\Controllers\Admins\SettingController;
+use App\Http\Controllers\Admins\DashboardController;
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');

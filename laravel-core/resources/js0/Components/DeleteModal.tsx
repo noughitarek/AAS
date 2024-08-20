@@ -1,5 +1,5 @@
 import { Trash2 } from "lucide-react";
-import Modal from "@/Components/Modal";
+import Modal from "@/Base-components/Modal";
 
 interface DeleteModalProps {
   showDeleteModal: boolean;

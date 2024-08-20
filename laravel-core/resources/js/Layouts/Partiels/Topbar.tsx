@@ -1,6 +1,6 @@
 import { Bell, CreditCard, Edit, HelpCircle, Inbox, Lock, Search, ToggleRight, User as UserIcon, Users } from 'lucide-react';
 import { ReactNode, useEffect, useState } from 'react';
-import Dropdown from '@/Base-components/Dropdown';
+import Dropdown from '@/Components/Dropdown';
 import { User } from '@/types';
 import { Link } from '@inertiajs/react';
 
@@ -27,7 +27,7 @@ const Topbar: React.FC<TopbarProps> = ({ breadcrumb, user }) => {
         <div className="top-bar -mx-4 px-4 md:mx-0 md:px-0">
             <nav aria-label="breadcrumb" className="mr-auto hidden sm:flex">
                 <ol className="breadcrumb">
-                    <li className="breadcrumb-item"><a href={route('dashboard')}>FMAP</a></li>
+                    <li className="breadcrumb-item"><a href={route('dashboard')}>AAS</a></li>
                     {breadcrumb}
                 </ol>
             </nav>

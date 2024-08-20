@@ -1,6 +1,6 @@
 <?php
 return [
-    "id" => "FMAP",
-    "title" => "Facebook Marketplace Auto poster AI",
+    "id" => "AAS",
+    "title" => "Advanced accountability system",
 ];
 ?>
