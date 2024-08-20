@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admins;
+namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Models\Setting;
-use App\Models\FacebookPage;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Http;
@@ -17,7 +16,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Admins/Settings/Index', ['settings' => config('settings')]);
+        return Inertia::render('Settings/Index', ['settings' => config('settings')]);
     }
 
     public function store(Request $request)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admins;
+namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use Inertia\Response;
@@ -19,7 +19,7 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): Response
     {
-        return Inertia::render('Admins/Profile/Edit', [
+        return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
         ]);

@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('wilayas', function (Blueprint $table) {
             $table->id();
-
-            $table->string('path')->unique();
-            $table->text('content')->nullable();
-
-            $table->foreignId('created_by')->constrained('users');
-            $table->foreignId('updated_by')->constrained('users');
+            
+            $table->string('name');
+            $table->string('name_ar')->nullable();
 
             $table->timestamps();
         });
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('wilayas');
     }
 };

@@ -2,8 +2,8 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admins\Auth\PasswordController;
-use App\Http\Controllers\Admins\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\AdminsAuth\PasswordController;
+use App\Http\Controllers\AdminsAuth\AuthenticatedSessionController;
 
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admins;
+namespace App\Http\Controllers;
 
 use App\Models\User;
 use Inertia\Inertia;
@@ -16,12 +16,10 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with(['createdBy', 'updatedBy', 'deletedBy'])
-        ->whereNull('deleted_at')
-        ->whereNull('deleted_by')
         ->orderBy('id', 'desc')
         ->get()->toArray();
         
-        return Inertia::render('Admins/Users/Index', [
+        return Inertia::render('Users/Index', [
             'users' => $users,
             'from' => 1,
             'to' => count($users),

@@ -11,14 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('advertisings', function (Blueprint $table) {
             $table->id();
+            
+            $table->string('name');
+            $table->unsignedBigInteger('daily_amount');
+            $table->foreignId('funding_id')->constrained('fundings');
 
-            $table->string('path')->unique();
-            $table->text('content')->nullable();
+            $table->unsignedInteger('investor_pourcentage')->default(50);
 
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('updated_by')->constrained('users');
+            $table->foreignId('deleted_by')->nullable()->constrained('users');
+            $table->softDeletes();
 
             $table->timestamps();
         });
@@ -29,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('advertisings');
     }
 };

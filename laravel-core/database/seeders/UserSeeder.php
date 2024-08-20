@@ -19,12 +19,16 @@ class UserSeeder extends Seeder
             'email' => 'system@gmail.com',
             'role' => 'System',
             'password' => Hash::make('password2'),
+            'created_by' => 1,
+            'updated_by' => 1
         ]);
         User::factory()->create([
             'name' => 'Younes',
             'email' => 'younes@gmail.com',
             'role' => 'Manager',
             'password' => Hash::make('password'),
+            'created_by' => 1,
+            'updated_by' => 1
         ]);
     }
 }

@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('advertising_fundings', function (Blueprint $table) {
             $table->id();
-
-            $table->string('path')->unique();
-            $table->text('content')->nullable();
-
-            $table->foreignId('created_by')->constrained('users');
-            $table->foreignId('updated_by')->constrained('users');
+            
+            $table->integer("amount");
+            $table->foreignId('advertising_id')->constrained('advertisings');
+            $table->foreignId('funding_id')->constrained('fundings');
 
             $table->timestamps();
         });
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('advertising_fundings');
     }
 };

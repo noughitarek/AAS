@@ -22,10 +22,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
 
-            $table->foreignId('created_by')->nullable()->constrained('users');
-            $table->foreignId('updated_by')->nullable()->constrained('users');
+            $table->foreignId('created_by')->constrained('users');
+            $table->foreignId('updated_by')->constrained('users');
             $table->foreignId('deleted_by')->nullable()->constrained('users');
-            $table->timestamp('deleted_at')->nullable();
+            $table->softDeletes();
             
             $table->rememberToken();
             $table->timestamps();
