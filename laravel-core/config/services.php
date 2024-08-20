@@ -34,5 +34,10 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-
+    
+    'facebook' => [
+        'client_id' => "971771760955448",
+        'client_secret' => "4d75da00c126a15152ce508de2ab334b",
+        'redirect' => "https://rtm.ecoshark.org/oauth/facebook/callback",
+    ],
 ];

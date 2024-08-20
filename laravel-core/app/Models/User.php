@@ -44,4 +44,21 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function Has_Permissions($permissions)
+    {
+        return true;
+    }
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by')->withDefault();
+    }
+    public function deletedBy()
+    {
+        return $this->belongsTo(User::class, 'deleted_by')->withDefault();
+    }
 }
