@@ -1,20 +1,20 @@
-import { PropsWithChildren, ReactNode } from 'react';
-import { Inertia } from '@inertiajs/inertia';
-
+import React, { ReactNode, useEffect } from 'react';
 import MobileMenu from './Partiels/MobileMenu';
 import SideMenu from './Partiels/SideMenu';
 import Topbar from './Partiels/Topbar';
 import { User } from '@/types';
 import { MenuItem } from '@/types/MenuItem'
 
-interface WebmasterProps {
+interface AdminLayoutProps {
     user: User;
     menu: MenuItem[];
     breadcrumb?: ReactNode;
     children?: React.ReactNode;
 }
 
-const AdminLayout: React.FC<WebmasterProps> = ({ user, menu, breadcrumb, children }) => {
+
+const AdminLayout: React.FC<AdminLayoutProps> = ({ user, menu, breadcrumb, children  }) => {
+    
     return (
         <>
             <MobileMenu menuItems={menu}/>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Desk;
+use Inertia\Inertia;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDeskRequest;
 use App\Http\Requests\UpdateDeskRequest;
 
@@ -13,7 +15,12 @@ class DeskController extends Controller
      */
     public function index()
     {
-        //
+        $desks = Desk::with('createdBy', 'updatedBy')->paginate(10);
+
+
+        return Inertia::render('Admins/Desks/Index', [
+            'desks' => $desks
+        ]);
     }
 
     /**
@@ -21,7 +28,7 @@ class DeskController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Admins/Desks/Create');
     }
 
     /**
@@ -29,7 +36,11 @@ class DeskController extends Controller
      */
     public function store(StoreDeskRequest $request)
     {
-        //
+        $data = $request->validated();
+        $data['created_by'] = auth()->id();
+        $data['updated_by'] = auth()->id();
+        $desk = Desk::create($data);
+        return redirect()->route('admins.desks.index')->with('success', 'Desk created successfully.');
     }
 
     /**
@@ -37,7 +48,9 @@ class DeskController extends Controller
      */
     public function show(Desk $desk)
     {
-        //
+        return Inertia::render('Admins/Desks/Show', [
+            'desk' => $desk
+        ]);
     }
 
     /**
@@ -45,7 +58,9 @@ class DeskController extends Controller
      */
     public function edit(Desk $desk)
     {
-        //
+        return Inertia::render('Admins/Desks/Edit', [
+            'desk' => $desk
+        ]);
     }
 
     /**
@@ -53,7 +68,10 @@ class DeskController extends Controller
      */
     public function update(UpdateDeskRequest $request, Desk $desk)
     {
-        //
+        $data = $request->validated();
+        $data['updated_by'] = auth()->id();
+        $desk->update($data);
+        return redirect()->route('admins.desks.index')->with('success', 'Desk updated successfully.');
     }
 
     /**
@@ -61,6 +79,9 @@ class DeskController extends Controller
      */
     public function destroy(Desk $desk)
     {
-        //
+        $desk->deleted_by = auth()->id();
+        $desk->save();
+        $desk->delete();
+        return redirect()->route('admins.desks.index')->with('success', 'Desk deleted successfully.');
     }
 }

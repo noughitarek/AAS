@@ -19,7 +19,7 @@ class UserController extends Controller
         ->orderBy('id', 'desc')
         ->get()->toArray();
         
-        return Inertia::render('Users/Index', [
+        return Inertia::render('Admins/Users/Index', [
             'users' => $users,
             'from' => 1,
             'to' => count($users),

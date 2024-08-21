@@ -15,8 +15,11 @@ return new class extends Migration
             $table->id();
 
             $table->string('name');
-            $table->string('reference')->nullable();
+            $table->string('reference')->nullable()->unique();
             $table->boolean('from_stock')->default(false);
+
+            $table->string('ecotrack_idf')->nullable();
+            $table->string('ecotrack_token')->nullable();
 
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('updated_by')->constrained('users');

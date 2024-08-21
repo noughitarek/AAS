@@ -1,10 +1,10 @@
 import { useRef, useState, FormEventHandler } from 'react';
-import DangerButton from '@/Base-components/DangerButton';
-import InputError from '@/Base-components/InputError';
-import InputLabel from '@/Base-components/InputLabel';
-import Modal from '@/Base-components/Modal';
-import SecondaryButton from '@/Base-components/SecondaryButton';
-import TextInput from '@/Base-components/TextInput';
+import DangerButton from '@/Components/DangerButton';
+import InputError from '@/Components/InputError';
+import InputLabel from '@/Components/InputLabel';
+import Modal from '@/Components/Modal';
+import SecondaryButton from '@/Components/SecondaryButton';
+import TextInput from '@/Components/TextInput';
 import { useForm } from '@inertiajs/react';
 
 export default function DeleteUserForm({ className = '' }: { className?: string }) {
@@ -29,7 +29,7 @@ export default function DeleteUserForm({ className = '' }: { className?: string 
     const deleteUser: FormEventHandler = (e) => {
         e.preventDefault();
 
-        destroy(route('profile.destroy'), {
+        destroy(route('admins.profile.destroy'), {
             preserveScroll: true,
             onSuccess: () => closeModal(),
             onError: () => passwordInput.current?.focus(),

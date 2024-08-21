@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateDeskRequest extends FormRequest
 {
@@ -22,8 +23,18 @@ class UpdateDeskRequest extends FormRequest
      */
     public function rules(): array
     {
+        $deskId = $this->route('desk');
         return [
-            //
+            'name' => 'required|string|min:4|max:255',
+            'reference' => [
+                'nullable',
+                'string',
+                'max:255',
+                Rule::unique('desks')->ignore($deskId),
+            ],
+            'from_stock' => 'boolean',
+            'ecotrack_idf' => 'nullable|string|max:255',
+            'ecotrack_token' => 'nullable|string|max:255',
         ];
     }
 }

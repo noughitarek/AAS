@@ -23,7 +23,11 @@ class StoreDeskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|min:4|max:255',
+            'reference' => 'nullable|string|unique:desks|min:4|max:255',
+            'from_stock' => 'boolean',
+            'ecotrack_idf' => 'nullable|string|max:255',
+            'ecotrack_token' => 'nullable|string|max:255',
         ];
     }
 }

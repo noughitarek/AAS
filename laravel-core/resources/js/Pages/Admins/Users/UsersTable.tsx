@@ -40,11 +40,11 @@ const UsersTable: React.FC<PageProps> = ({ users, searchTerm }) => {
     const handleDeleteConfirm = () => {
         setDeleting(true);
 
-        deleteEntry(route('users.destroy', {user: data.user}), {
+        deleteEntry(route('admins.users.destroy', {user: data.user}), {
             data: {user: data.user},
             onSuccess: () => {
                 toast.success('Utilisateur supprimé avec succès');
-                router.get(route('users.index'));
+                router.get(route('admins.users.index'));
             },
             onError: (error) => {
                 toast.error('Erreur lors de la suppression de l\'utilisateur');
@@ -155,7 +155,7 @@ const UsersTable: React.FC<PageProps> = ({ users, searchTerm }) => {
                                 </td>
                                 <td className="table-report__action w-56">
                                     <div className="flex justify-center items-center">
-                                        <Link className="flex items-center mr-3" href={route('users.edit', { user: user.id })}>
+                                        <Link className="flex items-center mr-3" href={route('admins.users.edit', { user: user.id })}>
                                             <CheckSquare className="w-4 h-4 mr-1"/> Modifier
                                         </Link>
                                         <Button className="flex items-center text-danger" onClick={(event) => handleDeleteClick(event, user.id)}>

@@ -16,7 +16,7 @@ class SettingController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Settings/Index', ['settings' => config('settings')]);
+        return Inertia::render('Admins/Settings/Index', ['settings' => config('settings')]);
     }
 
     public function store(Request $request)

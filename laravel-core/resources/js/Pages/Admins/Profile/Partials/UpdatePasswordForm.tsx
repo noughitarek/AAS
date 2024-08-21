@@ -1,8 +1,8 @@
 import { useRef, FormEventHandler } from 'react';
-import InputError from '@/Base-components/InputError';
-import InputLabel from '@/Base-components/InputLabel';
-import PrimaryButton from '@/Base-components/PrimaryButton';
-import TextInput from '@/Base-components/TextInput';
+import InputError from '@/Components/InputError';
+import InputLabel from '@/Components/InputLabel';
+import PrimaryButton from '@/Components/PrimaryButton';
+import TextInput from '@/Components/TextInput';
 import { useForm } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 
@@ -19,7 +19,7 @@ export default function UpdatePasswordForm({ className = '' }: { className?: str
     const updatePassword: FormEventHandler = (e) => {
         e.preventDefault();
 
-        put(route('password.update'), {
+        put(route('admins.password.update'), {
             preserveScroll: true,
             onSuccess: () => reset(),
             onError: (errors) => {

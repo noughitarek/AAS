@@ -1,7 +1,7 @@
-import InputError from '@/Base-components/InputError';
-import InputLabel from '@/Base-components/InputLabel';
-import PrimaryButton from '@/Base-components/PrimaryButton';
-import TextInput from '@/Base-components/TextInput';
+import InputError from '@/Components/InputError';
+import InputLabel from '@/Components/InputLabel';
+import PrimaryButton from '@/Components/PrimaryButton';
+import TextInput from '@/Components/TextInput';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { Transition } from '@headlessui/react';
 import { FormEventHandler } from 'react';
@@ -18,7 +18,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        patch(route('profile.update'));
+        patch(route('admins.profile.update'));
     };
 
     return (

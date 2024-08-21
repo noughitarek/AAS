@@ -5,15 +5,15 @@ return array(
         "type" => "link",
         "content" => "Dashboard",
         "active_when" => ["App\Http\Controllers\DashboardController@index"],
-        "route" => "/",
+        "route" => "/admins",
         "icon" => array("type" => "lucide", "content" => "House"),
     ),
     array("type" => "divider"),
     array(
         "type" => "link",
         "content" => "Desks",
-        "active_when" => ["App\Http\Controllers\DashboardController@"],
-        "route" => "/",
+        "active_when" => ["App\Http\Controllers\DeskController#"],
+        "route" => "/admins/desks",
         "icon" => array("type" => "lucide", "content" => "Building2"),
     ),
     array(
@@ -89,7 +89,7 @@ return array(
         "type" => "link",
         "content" => "Users",
         "active_when" => ["App\Http\Controllers\UserController#"],
-        "route" => "/users",
+        "route" => "/admins/users",
         "icon" => array("type" => "lucide", "content" => "Users"),
     ),
     array(
@@ -97,7 +97,7 @@ return array(
         "content" => "Settings",
         "active_when" => ["App\Http\Controllers\SettingController@index"],
         "section" => "settings",
-        "route" => "/settings",
+        "route" => "/admins/settings",
         "icon" => array("type" => "lucide", "content" => "Settings"),
     ),
 

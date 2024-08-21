@@ -22,7 +22,7 @@ const Users: React.FC<PageProps<{ users: User[], from:number, to:number, total:n
                 breadcrumb={<li className="breadcrumb-item active" aria-current="page">Users</li>}
             >
                 <Page title="Users" header={<>
-                    <Link className="btn btn-primary" href={route('users.create')}>Create a user</Link>
+                    <Link className="btn btn-primary" href={route('admins.users.create')}>Create a user</Link>
                         <PaginationInfo start={from} end={to} total={total}/>
                         <div className="w-full xl:w-auto flex items-center mt-3 xl:mt-0">
                             <div className="w-56 relative text-slate-500">

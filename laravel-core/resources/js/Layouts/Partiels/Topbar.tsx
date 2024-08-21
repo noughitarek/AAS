@@ -27,7 +27,7 @@ const Topbar: React.FC<TopbarProps> = ({ breadcrumb, user }) => {
         <div className="top-bar -mx-4 px-4 md:mx-0 md:px-0">
             <nav aria-label="breadcrumb" className="mr-auto hidden sm:flex">
                 <ol className="breadcrumb">
-                    <li className="breadcrumb-item"><a href={route('dashboard')}>AAS</a></li>
+                    <li className="breadcrumb-item"><a href={route('admins.dashboard')}>AAS</a></li>
                     {breadcrumb}
                 </ol>
             </nav>
@@ -219,7 +219,7 @@ const Topbar: React.FC<TopbarProps> = ({ breadcrumb, user }) => {
                                 <hr className="dropdown-divider border-white/[0.08]"/>
                             </li>
                             <li>
-                                <Link href={route('profile.edit')} className="dropdown-item hover:bg-white/5"> <UserIcon className="w-4 h-4 mr-2"/> Profile </Link>
+                                <Link href={route('admins.profile.edit')} className="dropdown-item hover:bg-white/5"> <UserIcon className="w-4 h-4 mr-2"/> Profile </Link>
                             </li>
                             <li>
                                 <a href="" className="dropdown-item hover:bg-white/5"> <Edit className="w-4 h-4 mr-2"/> Add Account </a>
@@ -234,7 +234,7 @@ const Topbar: React.FC<TopbarProps> = ({ breadcrumb, user }) => {
                                 <hr className="dropdown-divider border-white/[0.08]"/>
                             </li>
                             <li>
-                                <Link href={route('logout')} method="post" className="dropdown-item hover:bg-white/5"> <ToggleRight className="w-4 h-4 mr-2"/> Logout </Link>
+                                <Link href={route('admins.logout')} method="post" className="dropdown-item hover:bg-white/5"> <ToggleRight className="w-4 h-4 mr-2"/> Logout </Link>
                             </li>
                         </ul>
                     </div>
