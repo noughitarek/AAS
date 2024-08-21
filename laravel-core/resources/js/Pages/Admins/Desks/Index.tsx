@@ -5,9 +5,8 @@ import Page from "@/Components/Page";
 import { Button } from "@headlessui/react";
 import { Building2, Calendar, ChevronDown, Hash, Link as IconLink, Pencil, Search, SearchCheck, Trash2, User } from "lucide-react";
 import React, { useState, useEffect } from "react";
-import { lastActivityAt, lastActivityBy, mostRecentActivity } from "@/types/functions";
+import { lastActivityAt, lastActivityBy } from "@/types/functions";
 import DeleteModal from "@/Components/DeleteModal";
-import 'react-toastify/dist/ReactToastify.css';
 
 const Desks: React.FC<PageProps<{ desks: Data<Desk> }>> = ({auth, menu, desks}) => {
 

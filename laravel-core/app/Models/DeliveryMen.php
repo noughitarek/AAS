@@ -9,4 +9,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class DeliveryMen extends Model
 {
     use HasFactory, SoftDeletes;
+    protected $fillable = [
+        "phone",
+        "commune_id",
+        "desk_id",
+        "created_by",
+        "updated_by",
+        "deleted_by",
+    ];
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DeliveryMenController;
 use App\Http\Controllers\AdminsAuth\PasswordController;
 use App\Http\Controllers\AdminsAuth\AuthenticatedSessionController;
 
@@ -22,6 +23,12 @@ Route::prefix("admins")->name('admins.')->group(function () {
             Route::get('/{desk}/edit', [DeskController::class, 'edit'])->name('edit');
             Route::put('/{desk}/edit', [DeskController::class, 'update'])->name('update');
             Route::delete('/{desk}/delete', [DeskController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix("delivery-team")->name('deliveryTeam.')->controller(DeliveryMenController::class)->group(function(){
+            Route::get('', "index")->name('index');
+            Route::get('{wilaya}', "edit")->name('edit');
+            Route::post('{wilaya}', "update");
         });
 
 

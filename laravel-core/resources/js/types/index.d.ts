@@ -58,3 +58,24 @@ export interface Data<T>{
     to: number;
     total: number;
 }
+export interface Wilaya{
+    id: number;
+    name: string;
+    name_ar: string;
+    communes: Commune[];
+}
+export interface Commune{
+    id: number;
+    name: string;
+    name_ar: string;
+    wilaya_id: number;
+    wilaya: Wilaya;
+}
+export interface DeliveryMen{
+    id: number;
+    phone: string;
+    commune_id: number;
+    commune: Commune;
+    desk_id : number;
+    desk : Desk;
+}

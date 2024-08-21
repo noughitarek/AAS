@@ -19,8 +19,8 @@ return array(
     array(
         "type" => "link",
         "content" => "Delivery Team",
-        "active_when" => ["App\Http\Controllers\DashboardController@"],
-        "route" => "/",
+        "active_when" => ["App\Http\Controllers\DeliveryMenController#"],
+        "route" => "/admins/delivery-team",
         "icon" => array("type" => "lucide", "content" => "HardHat"),
     ),
     array(

@@ -15,8 +15,7 @@ class DeskController extends Controller
      */
     public function index()
     {
-        $desks = Desk::with('createdBy', 'updatedBy')->paginate(10);
-
+        $desks = Desk::with('createdBy', 'updatedBy')->orderBy('id', 'desc')->paginate(10);
 
         return Inertia::render('Admins/Desks/Index', [
             'desks' => $desks
