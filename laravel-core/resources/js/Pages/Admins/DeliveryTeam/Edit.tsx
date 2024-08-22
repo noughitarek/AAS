@@ -105,7 +105,7 @@ const DeliveryTeamEdit: React.FC<PageProps<{ deliveryMens: DeliveryMenType[]; de
                     </>
                 }
             >
-                <Page title="Desks" header="">
+                <Page title="Delivery team" header="">
                     <Grid title={"Wilaya of "+wilaya.name} header={<button onClick={submit} disabled={processing} className="btn btn-primary">{processing ? "Saving":"Save"}</button>}>
                         <div className="intro-y overflow-auto">
                             <table className="table table-report -mt-2">

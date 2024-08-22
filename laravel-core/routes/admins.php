@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeliveryMenController;
+use App\Http\Controllers\TrackingMessagesController;
 use App\Http\Controllers\AdminsAuth\PasswordController;
 use App\Http\Controllers\AdminsAuth\AuthenticatedSessionController;
 
@@ -30,7 +31,10 @@ Route::prefix("admins")->name('admins.')->group(function () {
             Route::get('{wilaya}', "edit")->name('edit');
             Route::post('{wilaya}', "update");
         });
-
+        Route::prefix("tracking-messages")->name('trackingMessages.')->controller(TrackingMessagesController::class)->group(function(){
+            Route::get('', "index")->name('index');
+            Route::post('', "save")->name('save');
+        });
 
         Route::prefix('users')->name('users.')->group(function() {
             Route::get('/', [UserController::class, 'index'])->name('index');

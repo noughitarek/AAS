@@ -26,8 +26,8 @@ return array(
     array(
         "type" => "link",
         "content" => "Tracking messages",
-        "active_when" => ["App\Http\Controllers\DashboardController@"],
-        "route" => "/",
+        "active_when" => ["App\Http\Controllers\TrackingMessagesController#"],
+        "route" => "/admins/tracking-messages",
         "icon" => array("type" => "lucide", "content" => "Crosshair"),
     ),
     array("type" => "divider"),
