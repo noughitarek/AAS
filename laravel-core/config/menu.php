@@ -34,8 +34,8 @@ return array(
     array(
         "type" => "link",
         "content" => "Products",
-        "active_when" => ["App\Http\Controllers\DashboardController@"],
-        "route" => "/",
+        "active_when" => ["App\Http\Controllers\ProductController#"],
+        "route" => "/admins/products",
         "icon" => array("type" => "lucide", "content" => "Package"),
     ),
     array(

@@ -44,6 +44,15 @@ export interface Desk{
     created_by: User;
     updated_by: User;
 }
+export interface Product{
+    id: number;
+    name: string;
+    reference?: string;
+    created_at: Date;
+    updated_at: Date;
+    created_by: User;
+    updated_by: User;
+}
 export interface Data<T>{
     current_page: number;
     data: T[];

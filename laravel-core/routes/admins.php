@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DeskController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\DashboardController;
@@ -25,7 +26,6 @@ Route::prefix("admins")->name('admins.')->group(function () {
             Route::put('/{desk}/edit', [DeskController::class, 'update'])->name('update');
             Route::delete('/{desk}/delete', [DeskController::class, 'destroy'])->name('destroy');
         });
-
         Route::prefix("delivery-team")->name('deliveryTeam.')->controller(DeliveryMenController::class)->group(function(){
             Route::get('', "index")->name('index');
             Route::get('{wilaya}', "edit")->name('edit');
@@ -34,6 +34,15 @@ Route::prefix("admins")->name('admins.')->group(function () {
         Route::prefix("tracking-messages")->name('trackingMessages.')->controller(TrackingMessagesController::class)->group(function(){
             Route::get('', "index")->name('index');
             Route::post('', "save")->name('save');
+        });
+        Route::prefix('products')->name('products.')->group(function() {
+            Route::get('/', [ProductController::class, 'index'])->name('index');
+            Route::get('/create', [ProductController::class, 'create'])->name('create');
+            Route::post('/create', [ProductController::class, 'store'])->name('store');
+            Route::get('/{product}', [ProductController::class, 'show'])->name('show');
+            Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('edit');
+            Route::put('/{product}/edit', [ProductController::class, 'update'])->name('update');
+            Route::delete('/{product}/delete', [ProductController::class, 'destroy'])->name('destroy');
         });
 
         Route::prefix('users')->name('users.')->group(function() {
