@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\InvestorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DeliveryMenController;
 use App\Http\Controllers\TrackingMessagesController;
@@ -43,6 +44,15 @@ Route::prefix("admins")->name('admins.')->group(function () {
             Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('edit');
             Route::put('/{product}/edit', [ProductController::class, 'update'])->name('update');
             Route::delete('/{product}/delete', [ProductController::class, 'destroy'])->name('destroy');
+        });
+        Route::prefix('investors')->name('investors.')->group(function() {
+            Route::get('/', [InvestorController::class, 'index'])->name('index');
+            Route::get('/create', [InvestorController::class, 'create'])->name('create');
+            Route::post('/create', [InvestorController::class, 'store'])->name('store');
+            Route::get('/{investor}', [InvestorController::class, 'show'])->name('show');
+            Route::get('/{investor}/edit', [InvestorController::class, 'edit'])->name('edit');
+            Route::put('/{investor}/edit', [InvestorController::class, 'update'])->name('update');
+            Route::delete('/{investor}/delete', [InvestorController::class, 'destroy'])->name('destroy');
         });
 
         Route::prefix('users')->name('users.')->group(function() {

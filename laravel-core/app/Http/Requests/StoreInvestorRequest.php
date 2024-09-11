@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreInvestorRequest extends FormRequest
@@ -11,7 +12,7 @@ class StoreInvestorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::user()->Has_Permissions('create_investors');
     }
 
     /**
@@ -22,7 +23,10 @@ class StoreInvestorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|min:4|max:255',
+            'email' => 'required|string|email|unique:investors,email',
+            'password' => 'nullable|string|min:8|max:255',
+            'permissions' => 'nullable|array',
         ];
     }
 }

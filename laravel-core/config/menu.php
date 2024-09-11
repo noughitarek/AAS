@@ -57,8 +57,8 @@ return array(
     array(
         "type" => "link",
         "content" => "Investors",
-        "active_when" => ["App\Http\Controllers\DashboardController@"],
-        "route" => "/",
+        "active_when" => ["App\Http\Controllers\InvestorController#"],
+        "route" => "/admins/investors",
         "icon" => array("type" => "lucide", "content" => "Briefcase"),
     ),
     array(

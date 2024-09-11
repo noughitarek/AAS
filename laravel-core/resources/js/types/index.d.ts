@@ -5,6 +5,12 @@ export interface User {
     name: string;
     email: string;
     email_verified_at: string;
+    role: string;
+    permissions: string;
+    created_at: Date;
+    updated_at: Date;
+    created_by: User;
+    updated_by: User;
 }
 type DynamicSetting = {
     [key: string]: any;
@@ -17,16 +23,6 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
     settings?: DynamicSetting;
 };
 
-export interface User{
-    id: number;
-    name: string;
-    role: string;
-    permissions: string;
-    created_at: Date;
-    updated_at: Date;
-    created_by: User;
-    updated_by: User;
-}
 export interface Link{
     url: string;
     label: string | number;
@@ -87,4 +83,15 @@ export interface DeliveryMen{
     commune: Commune;
     desk_id : number;
     desk : Desk;
+}
+export interface Investor {
+    id: number;
+    name: string;
+    email: string;
+    email_verified_at: string;
+    permissions: string[];
+    created_at: Date;
+    updated_at: Date;
+    created_by: User;
+    updated_by: User;
 }

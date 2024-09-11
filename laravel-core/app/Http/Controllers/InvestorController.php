@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use App\Models\Investor;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\StoreInvestorRequest;
 use App\Http\Requests\UpdateInvestorRequest;
 
@@ -16,7 +17,6 @@ class InvestorController extends Controller
     public function index()
     {
         $investors = Investor::with('createdBy', 'updatedBy')->orderBy('id', 'desc')->paginate(10);
-
         return Inertia::render('Admins/Investors/Index', [
             'investors' => $investors
         ]);
@@ -36,6 +36,14 @@ class InvestorController extends Controller
     public function store(StoreInvestorRequest $request)
     {
         $data = $request->validated();
+        $data['password'] = $data['password'] 
+            ? Hash::make($data['password']) 
+            : Hash::make(bin2hex(random_bytes(10)));
+
+        $data['permissions'] = isset($data['permissions']) 
+            ? implode(',', $data['permissions']) 
+            : '';
+
         $data['created_by'] = auth()->id();
         $data['updated_by'] = auth()->id();
         $investor = Investor::create($data);
@@ -47,6 +55,7 @@ class InvestorController extends Controller
      */
     public function show(Investor $investor)
     {
+        $investor->permissions = explode(',', $investor->permissions);
         return Inertia::render('Admins/Investors/Show', [
             'investor' => $investor
         ]);
@@ -57,6 +66,7 @@ class InvestorController extends Controller
      */
     public function edit(Investor $investor)
     {
+        $investor->permissions = explode(',', $investor->permissions);
         return Inertia::render('Admins/Investors/Edit', [
             'investor' => $investor
         ]);
@@ -68,6 +78,7 @@ class InvestorController extends Controller
     public function update(UpdateInvestorRequest $request, Investor $investor)
     {
         $data = $request->validated();
+        $data['permissions'] = implode(',', $data['permissions']);
         $data['updated_by'] = auth()->id();
         $investor->update($data);
         return redirect()->route('admins.investors.index')->with('success', 'Investor updated successfully.');

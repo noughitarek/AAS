@@ -21,31 +21,20 @@ class Investor extends Model implements AuthenticatableContract
         'name',
         'email',
         'password',
+        'permissions',
         'created_by',
         'updated_by',
         'deleted_by',
     ];
-
-    /**
-     * Get the user who created this investor.
-     */
-    public function creator()
+    public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by');
     }
-
-    /**
-     * Get the user who last updated this investor.
-     */
-    public function updater()
+    public function updatedBy()
     {
         return $this->belongsTo(User::class, 'updated_by');
     }
-
-    /**
-     * Get the user who deleted this investor.
-     */
-    public function deleter()
+    public function deletedBy()
     {
         return $this->belongsTo(User::class, 'deleted_by');
     }
