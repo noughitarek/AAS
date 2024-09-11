@@ -64,8 +64,8 @@ return array(
     array(
         "type" => "link",
         "content" => "Fundings",
-        "active_when" => ["App\Http\Controllers\DashboardController@"],
-        "route" => "/",
+        "active_when" => ["App\Http\Controllers\FundingController#"],
+        "route" => "/admins/fundings",
         "icon" => array("type" => "lucide", "content" => "CircleDollarSign"),
     ),
     array(

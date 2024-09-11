@@ -95,3 +95,25 @@ export interface Investor {
     created_by: User;
     updated_by: User;
 }
+export interface Funding {
+    id: number;
+    total_amount: number;
+    products_percentage: number;
+    products_part: number;
+    advertising_percentage: number;
+    advertising_part: number;
+    workers_percentage: number;
+    workers_part: number;
+    product_id: number;
+    product: Product;
+    desk_id: number;
+    desk: Desk;
+    investor_id: number;
+    investor: Investor;
+    type: number;
+    investor_percentage: number;
+    created_at: Date;
+    updated_at: Date;
+    created_by: User;
+    updated_by: User;
+}

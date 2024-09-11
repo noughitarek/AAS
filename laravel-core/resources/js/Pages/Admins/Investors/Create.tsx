@@ -80,7 +80,7 @@ const CreateInvestor: React.FC<PageProps> = ({ auth, menu }) => {
                             <div className="w-full mt-3 xl:mt-0 flex-1">
                                 <input
                                     value={data.name}
-                                    placeholder="For ex: Laptop"
+                                    placeholder="For ex: Mohamed"
                                     type="text"
                                     onChange={(e) => setData('name', e.target.value)}
                                     className="form-control"
@@ -137,7 +137,7 @@ const CreateInvestor: React.FC<PageProps> = ({ auth, menu }) => {
                                     className="form-control"
                                 />
                                 <div className={`form-help text-right mt-2 ${errors.password ? "text-danger" : ""}`}>
-                                    {errors.password ? `${errors.password} - ` : ""}Leave it empty to generate a URL for setting the passwor
+                                    {errors.password ? `${errors.password} - ` : ""}Leave it empty to generate a URL for setting the password
                                 </div>
                             </div>
                         </div>

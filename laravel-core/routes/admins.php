@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DeskController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FundingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
@@ -53,6 +54,15 @@ Route::prefix("admins")->name('admins.')->group(function () {
             Route::get('/{investor}/edit', [InvestorController::class, 'edit'])->name('edit');
             Route::put('/{investor}/edit', [InvestorController::class, 'update'])->name('update');
             Route::delete('/{investor}/delete', [InvestorController::class, 'destroy'])->name('destroy');
+        });
+        Route::prefix('fundings')->name('fundings.')->group(function() {
+            Route::get('/', [FundingController::class, 'index'])->name('index');
+            Route::get('/create', [FundingController::class, 'create'])->name('create');
+            Route::post('/create', [FundingController::class, 'store'])->name('store');
+            Route::get('/{funding}', [FundingController::class, 'show'])->name('show');
+            Route::get('/{funding}/edit', [FundingController::class, 'edit'])->name('edit');
+            Route::put('/{funding}/edit', [FundingController::class, 'update'])->name('update');
+            Route::delete('/{funding}/delete', [FundingController::class, 'destroy'])->name('destroy');
         });
 
         Route::prefix('users')->name('users.')->group(function() {

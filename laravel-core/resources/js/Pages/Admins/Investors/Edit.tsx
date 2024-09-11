@@ -74,7 +74,7 @@ const EditInvestor: React.FC<PageProps<{investor: Investor}>> = ({ auth, menu, i
                             <div className="w-full mt-3 xl:mt-0 flex-1">
                                 <input
                                     value={data.name}
-                                    placeholder="For ex: Laptop"
+                                    placeholder="For ex: Mohamed"
                                     type="text"
                                     onChange={(e) => setData('name', e.target.value)}
                                     className="form-control"
