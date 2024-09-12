@@ -17,9 +17,7 @@ class InvestorController extends Controller
     public function index()
     {
         $investors = Investor::with('createdBy', 'updatedBy')->orderBy('id', 'desc')->paginate(10);
-        return Inertia::render('Admins/Investors/Index', [
-            'investors' => $investors
-        ]);
+        return Inertia::render('Admins/Investors/Index', ['investors' => $investors]);
     }
 
     /**
@@ -56,9 +54,7 @@ class InvestorController extends Controller
     public function show(Investor $investor)
     {
         $investor->permissions = explode(',', $investor->permissions);
-        return Inertia::render('Admins/Investors/Show', [
-            'investor' => $investor
-        ]);
+        return Inertia::render('Admins/Investors/Show', ['investor' => $investor]);
     }
 
     /**
@@ -67,9 +63,7 @@ class InvestorController extends Controller
     public function edit(Investor $investor)
     {
         $investor->permissions = explode(',', $investor->permissions);
-        return Inertia::render('Admins/Investors/Edit', [
-            'investor' => $investor
-        ]);
+        return Inertia::render('Admins/Investors/Edit', ['investor' => $investor]);
     }
 
     /**

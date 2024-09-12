@@ -16,9 +16,7 @@ class ProductController extends Controller
     {
         $products = Product::with('createdBy', 'updatedBy')->orderBy('id', 'desc')->paginate(10);
 
-        return Inertia::render('Admins/Products/Index', [
-            'products' => $products
-        ]);
+        return Inertia::render('Admins/Products/Index', ['products' => $products]);
     }
 
     /**
@@ -46,9 +44,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return Inertia::render('Admins/Products/Show', [
-            'product' => $product
-        ]);
+        return Inertia::render('Admins/Products/Show', ['product' => $product]);
     }
 
     /**
@@ -56,9 +52,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return Inertia::render('Admins/Products/Edit', [
-            'product' => $product
-        ]);
+        return Inertia::render('Admins/Products/Edit', ['product' => $product]);
     }
 
     /**

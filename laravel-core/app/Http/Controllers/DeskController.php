@@ -47,9 +47,7 @@ class DeskController extends Controller
      */
     public function show(Desk $desk)
     {
-        return Inertia::render('Admins/Desks/Show', [
-            'desk' => $desk
-        ]);
+        return Inertia::render('Admins/Desks/Show', ['desk' => $desk]);
     }
 
     /**

@@ -67,9 +67,7 @@ class FundingController extends Controller
      */
     public function show(Funding $funding)
     {
-        return Inertia::render('Admins/Fundings/Show', [
-            'funding' => $funding,
-        ]);
+        return Inertia::render('Admins/Fundings/Show', ['funding' => $funding]);
     }
 
     /**
