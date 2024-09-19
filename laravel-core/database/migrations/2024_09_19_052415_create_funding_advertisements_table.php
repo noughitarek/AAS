@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('advertising_fundings', function (Blueprint $table) {
+        Schema::create('funding_advertisements', function (Blueprint $table) {
             $table->id();
-            
-            $table->integer("amount");
-            $table->foreignId('advertising_id')->constrained('advertisings');
+
+            $table->unsignedBigInteger('advertisement_amount');
             $table->foreignId('funding_id')->constrained('fundings');
+            $table->date('day');
 
             $table->timestamps();
         });
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('advertising_fundings');
+        Schema::dropIfExists('funding_advertisements');
     }
 };
