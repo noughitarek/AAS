@@ -16,7 +16,7 @@ return new class extends Migration
             
             $table->unsignedBigInteger('total_amount');
             $table->unsignedInteger('type');
-            $table->unsignedInteger('investor_percentage')->default(50);
+            $table->unsignedInteger('investor_percentage')->default(50);            
             
             $table->unsignedInteger('products_percentage')->default(60);
             $table->unsignedBigInteger('products_part');

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class FundingAdvertisement extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'advertisement_amount',
+        'funding_id',
+        'day'
+    ];
 }

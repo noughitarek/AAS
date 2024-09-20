@@ -277,6 +277,16 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
                                                 </td>
                                                 <td>
                                                     <InertiaLink
+                                                        className="btn btn-success"
+                                                        href={route(
+                                                            "admins.fundings.edit",
+                                                            { funding: funding.id }
+                                                        )}
+                                                    >
+                                                        <ShoppingCart className="w-4 h-4" />
+                                                    </InertiaLink>
+                                                    &nbsp;
+                                                    <InertiaLink
                                                         className="btn btn-warning"
                                                         href={route(
                                                             "admins.fundings.edit",

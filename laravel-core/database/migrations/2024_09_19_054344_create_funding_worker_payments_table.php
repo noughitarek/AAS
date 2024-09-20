@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('funding_worker_payments', function (Blueprint $table) {
             $table->id();
+            
+            $table->unsignedBigInteger('paid_amount');
+            $table->foreignId('funding_id')->constrained('fundings');
+            $table->timestamp('purchased_at');
+
             $table->timestamps();
         });
     }
