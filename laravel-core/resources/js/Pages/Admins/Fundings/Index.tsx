@@ -4,14 +4,22 @@ import { Head, Link as InertiaLink, useForm } from "@inertiajs/react";
 import Page from "@/Components/Page";
 import { Button } from "@headlessui/react";
 import { AtSign, Box, Building2, Calendar, ChevronDown, DollarSign, Hash, Link as IconLink, Pencil, Search, SearchCheck, ShoppingCart, Trash2, User } from "lucide-react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEventHandler } from "react";
 import { lastActivityAt, lastActivityBy } from "@/types/functions";
 import DeleteModal from "@/Components/DeleteModal";
+import Modal from "@/Components/Modal";
 
 const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu, fundings}) => {
 
-    const { data, setData, delete: deleteFunction, processing } = useForm({fundingId: 0});
+    const { data, setData, delete: deleteFunction, post, processing } = useForm({
+        fundingId: 0,
+        purchase_amount: 0,
+        purchase_quantity: 0,
+        purchased_at: new Date().toISOString().slice(0, 16),
+    });
+    const [saving, setSaving] = useState<boolean>(false);
     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+    const [showPurchaseModal, setShowPurchaseModal] = useState<boolean>(false);
     const [search, setSearch] = useState<string>("");
     const [activeFundings, setActiveFundings] = useState<Data<Funding>>(fundings);
     const submit = () =>{
@@ -33,6 +41,18 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
     
 
     }, [search])
+
+    const purchase: FormEventHandler = (e) => {
+        e.preventDefault();
+        post(route('admins.fundings.purchase', {funding: data.fundingId}));
+        setData({
+            fundingId: 0,
+            purchase_amount: 0,
+            purchase_quantity: 0,
+            purchased_at: new Date().toISOString().slice(0, 16),
+        });
+        setShowPurchaseModal(false)
+    };
     return (
         <>
             <Head title="Fundings" />
@@ -142,6 +162,13 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
                                                     </div>
                                                 </td>
                                                 <td>
+                                                    {
+                                                        !funding.firstPurchaseAt && (
+                                                            <span className="text-sm text-danger">
+                                                                You didn't purchase this product for {Math.floor((Date.now() - new Date(funding.created_at).getTime()) / (1000 * 60 * 60 * 24))} days now.
+                                                            </span>
+                                                        )
+                                                    }
                                                     <div className="flex items-center">
                                                         <span className="text-sm text-gray-500">
                                                             Total: {funding.products_part} DZD
@@ -149,26 +176,43 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
                                                     </div>
                                                     <div className="flex items-center">
                                                         <span className="text-sm text-gray-500">
-                                                            Used: 0 DZD
+                                                            Used: {funding.totalPurchaseAmount} DZD
                                                         </span>
                                                     </div>
                                                     <div className="flex items-center">
                                                         <span className="text-sm text-gray-500">
-                                                            Unused: {funding.products_part} DZD
+                                                            Unused: {funding.products_part-funding.totalPurchaseAmount} DZD
                                                         </span>
                                                     </div>
                                                     <div className="flex items-center">
                                                         <span className="text-sm text-gray-500">
-                                                            Quantity: 0
+                                                            Quantity: {funding.totalPurchaseQuantity}
                                                         </span>
                                                     </div>
                                                     <div className="flex items-center">
                                                         <span className="text-sm text-gray-500">
-                                                            First purchase at: N/A
+                                                            First purchase:  &nbsp;
+                                                            {
+                                                                funding.firstPurchaseAt && new Date(funding.firstPurchaseAt).toLocaleString(
+                                                                "en-GB",
+                                                                {
+                                                                    day: "2-digit",
+                                                                    month: "2-digit",
+                                                                    year: "numeric",
+                                                                }
+                                                            )}
+                                                            {!funding.firstPurchaseAt && 'N/A'}
                                                         </span>
                                                     </div>
                                                 </td>
                                                 <td>
+                                                    {
+                                                        !funding.firstAdvertisementAt && (
+                                                            <span className="text-sm text-danger">
+                                                                You didn't start the advertising for this product for {Math.floor((Date.now() - new Date(funding.created_at).getTime()) / (1000 * 60 * 60 * 24))} days now.
+                                                            </span>
+                                                        )
+                                                    }
                                                     <div className="flex items-center">
                                                         <span className="text-sm text-gray-500">
                                                             Total: {funding.advertising_part} DZD
@@ -176,17 +220,26 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
                                                     </div>
                                                     <div className="flex items-center">
                                                         <span className="text-sm text-gray-500">
-                                                            Used: 0 DZD
+                                                            Used: {funding.totalAdvertisements} DZD
                                                         </span>
                                                     </div>
                                                     <div className="flex items-center">
                                                         <span className="text-sm text-gray-500">
-                                                            Unused: {funding.advertising_part} DZD
+                                                            Unused: {funding.advertising_part-funding.totalAdvertisements} DZD
                                                         </span>
                                                     </div>
                                                     <div className="flex items-center">
                                                         <span className="text-sm text-gray-500">
-                                                            Start at: N/A
+                                                            Start at: &nbsp;
+                                                            {
+                                                                funding.firstAdvertisementAt && new Date(funding.firstAdvertisementAt).toLocaleString(
+                                                                "en-GB",
+                                                                {
+                                                                    day: "2-digit",
+                                                                    month: "2-digit",
+                                                                    year: "numeric"
+                                                                }
+                                                            )}
                                                         </span>
                                                     </div>
                                                     <div className="flex items-center">
@@ -276,15 +329,17 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <InertiaLink
+                                                    <Button
                                                         className="btn btn-success"
-                                                        href={route(
-                                                            "admins.fundings.edit",
-                                                            { funding: funding.id }
-                                                        )}
+                                                        onClick={(e)=>{
+                                                            e.preventDefault()
+                                                            setData('fundingId', funding.id);
+                                                            setShowPurchaseModal(true)
+                                                            }
+                                                        }
                                                     >
                                                         <ShoppingCart className="w-4 h-4" />
-                                                    </InertiaLink>
+                                                    </Button>
                                                     &nbsp;
                                                     <InertiaLink
                                                         className="btn btn-warning"
@@ -349,6 +404,92 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
                         </div>
                     </div>
                 </Page>
+                <Modal show={showPurchaseModal} onClose={()=>setShowPurchaseModal(false)} maxWidth="md">
+                    <div className="p-6">
+                        <ShoppingCart className="w-16 h-16 mx-auto text-success" />
+                        <h2 className="mt-6 text-xl font-bold">Fill your purchase information</h2>
+                        <div className="mt-6">
+                            <div className="form-inline items-start flex-col xl:flex-row mt-5 pt-5 first:mt-0 first:pt-0 pb-4">
+                                <div className="form-label xl:w-16 xl:!mr-10">
+                                    <div className="text-left">
+                                        <div className="flex items-center mt-2">
+                                            <div className="font-medium">Amount</div>
+                                            <div className="text-danger ml-2">*</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="w-full mt-3 xl:mt-0 flex-1">
+                                    <input 
+                                        className="form-control"
+                                        placeholder="A number greater than 0"
+                                        type="number"
+                                        onChange={(e) => setData('purchase_amount', parseFloat(e.target.value))}
+                                        value={data.purchase_amount??''}
+                                    />
+                                    <p>
+                                    Products part: {fundings.data.find(funding => funding.id === data.fundingId)?.products_part+ ' DZD'}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="form-inline items-start flex-col xl:flex-row pt-5 first:mt-0 first:pt-0 pb-4">
+                                <div className="form-label xl:w-16 xl:!mr-10">
+                                    <div className="text-left">
+                                        <div className="flex items-center mt-2">
+                                            <div className="font-medium">Quantity</div>
+                                            <div className="text-danger ml-2">*</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="w-full mt-3 xl:mt-0 flex-1">
+                                    <input
+                                        type="number"
+                                        className="form-control"
+                                        placeholder="A number greater than 0"
+                                        value={data.purchase_quantity??''}
+                                        onChange={(e) => setData('purchase_quantity', parseFloat(e.target.value))}
+                                    />
+                                </div>
+                            </div>
+                            <div className="form-inline items-start flex-col xl:flex-row pt-5 first:mt-0 first:pt-0 pb-4">
+                                <div className="form-label xl:w-16 xl:!mr-10">
+                                    <div className="text-left">
+                                        <div className="flex items-center mt-2">
+                                            <div className="font-medium">Purchased at</div>
+                                            <div className="text-danger ml-2">*</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="w-full mt-3 xl:mt-0 flex-1">
+                                    <input
+                                        className="form-control"
+                                        type='datetime-local'
+                                        value={data.purchased_at}
+                                        placeholder="A valid date"
+                                        onChange={(e) => setData('purchased_at', e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="mt-6 flex justify-center">
+                            <button
+                                className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 mr-2 rounded"
+                                onClick={()=>setShowPurchaseModal(false)}
+                                disabled={saving}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                className={`bg-success hover:bg-red-700 text-white font-bold py-2 px-4 rounded ${
+                                    saving ? "opacity-50 cursor-not-allowed" : ""
+                                }`}
+                                onClick={purchase}
+                                disabled={saving}
+                            >
+                                {saving ? "Saving..." : "Purchase"}
+                            </button>
+                            </div>
+                        </div>
+                    </div>
+                </Modal>
             </AdminLayout>
         </>
     );

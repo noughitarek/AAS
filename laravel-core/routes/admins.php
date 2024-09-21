@@ -60,6 +60,9 @@ Route::prefix("admins")->name('admins.')->group(function () {
             Route::get('/create', [FundingController::class, 'create'])->name('create');
             Route::post('/create', [FundingController::class, 'store'])->name('store');
             Route::get('/{funding}', [FundingController::class, 'show'])->name('show');
+            
+            Route::post('/{funding}/purchase', [FundingController::class, 'purchase'])->name('purchase');
+            
             Route::get('/{funding}/edit', [FundingController::class, 'edit'])->name('edit');
             Route::put('/{funding}/edit', [FundingController::class, 'update'])->name('update');
             Route::delete('/{funding}/delete', [FundingController::class, 'destroy'])->name('destroy');

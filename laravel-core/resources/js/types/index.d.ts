@@ -100,6 +100,14 @@ export interface Funding {
     total_amount: number;
     products_percentage: number;
     products_part: number;
+
+    totalPurchaseAmount: number;
+    totalPurchaseQuantity: number;
+    firstPurchaseAt: Date | null;
+
+    totalAdvertisements: number;
+    firstAdvertisementAt: Date | null;
+
     advertising_percentage: number;
     advertising_part: number;
     workers_percentage: number;

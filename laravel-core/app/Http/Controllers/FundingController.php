@@ -7,6 +7,8 @@ use Inertia\Inertia;
 use App\Models\Funding;
 use App\Models\Product;
 use App\Models\Investor;
+use Illuminate\Http\Request;
+use App\Models\FundingPurchase;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreFundingRequest;
@@ -19,7 +21,19 @@ class FundingController extends Controller
      */
     public function index()
     {
-        $fundings = Funding::with('createdBy', 'updatedBy', 'investor', 'desk', 'product')->orderBy('id', 'desc')->paginate(10);
+        $fundings = Funding::with('createdBy', 'updatedBy', 'investor', 'desk', 'product', 'purchases')->orderBy('id', 'desc')->paginate(10);
+        
+        foreach($fundings as &$funding){
+            $funding->totalPurchaseAmount = $funding->purchases->sum('purchase_amount');
+            $funding->totalPurchaseQuantity = $funding->purchases->sum('purchase_quantity');
+            $firstPurchase = $funding->purchases->sortBy('purchased_at')->first();
+            $funding->firstPurchaseAt = $firstPurchase ? $firstPurchase->purchased_at : null;
+
+            $funding->totalAdvertisements = $funding->advertisements->sum('advertisement_amount');
+            $firstAdvertisement = $funding->advertisements->sortBy('day')->first();
+            $funding->firstAdvertisementAt = $firstAdvertisement ? $firstAdvertisement->day : null;
+        }
+        
         return Inertia::render('Admins/Fundings/Index', [
             'fundings' => $fundings
         ]);
@@ -113,6 +127,18 @@ class FundingController extends Controller
         $funding->deleted_by = auth()->id();
         $funding->save();
         $funding->delete();
+        return redirect()->route('admins.fundings.index')->with('success', 'Funding deleted successfully.');
+    }
+
+    public function purchase(Funding $funding, Request $request)
+    {
+        FundingPurchase::create([
+            'purchase_amount' => $request->purchase_amount,
+            'purchase_quantity' => $request->purchase_quantity,
+            'funding_id' => $request->fundingId,
+            'purchased_at' => $request->purchased_at
+        ]);
+
         return redirect()->route('admins.fundings.index')->with('success', 'Funding deleted successfully.');
     }
 }

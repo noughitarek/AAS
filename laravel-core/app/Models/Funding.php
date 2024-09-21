@@ -50,4 +50,12 @@ class Funding extends Model
     {
         return $this->belongsTo(User::class, 'deleted_by');
     }
+    public function purchases()
+    {
+        return $this->hasMany(FundingPurchase::class);
+    }
+    public function advertisements()
+    {
+        return $this->hasMany(FundingAdvertisement::class);
+    }
 }
