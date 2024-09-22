@@ -30,6 +30,14 @@ class Funding extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+    public function deletedBy()
+    {
+        return $this->belongsTo(User::class, 'deleted_by');
+    }
     public function investor()
     {
         return $this->belongsTo(Investor::class);
@@ -41,14 +49,6 @@ class Funding extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
-    }
-    public function updatedBy()
-    {
-        return $this->belongsTo(User::class, 'updated_by');
-    }
-    public function deletedBy()
-    {
-        return $this->belongsTo(User::class, 'deleted_by');
     }
     public function purchases()
     {

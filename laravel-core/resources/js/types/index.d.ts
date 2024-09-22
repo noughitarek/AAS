@@ -130,3 +130,41 @@ export interface Funding {
     dayp1?: number;
     dayp2?: number;
 }
+export interface Order{
+    id: number;
+    name: string;
+    phone: string;
+    phone2: string;
+    address: string;
+    commune_id: number;
+    commune: Commune;
+    total_price: number;
+    delivery_fee: number;
+    clean_price: number;
+    tracking: string;
+    intern_tracking: string;
+    fragile: number;
+    stopdesk: number;
+    desk_id: number;
+    funding_id: number;
+    validated_at: Date;
+    shipped_at: Date;
+    wilaya_at: Date;
+    delivery_at: Date;
+    delivered_at: Date;
+    ready_at: Date;
+    recovered_at: Date;
+    returned_at: Date;
+    returned_ready_at: Date;
+    order_products: OrderProducts[];
+    created_at: Date;
+    created_by: User;
+    updated_by: User;
+    deleted_by: User;
+}
+export interface OrderProducts{
+    id: number;
+    quantity: number;
+    product: Product;
+    order: Order;
+}

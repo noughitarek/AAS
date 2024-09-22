@@ -41,8 +41,8 @@ return array(
     array(
         "type" => "link",
         "content" => "Orders",
-        "active_when" => ["App\Http\Controllers\DashboardController@"],
-        "route" => "/",
+        "active_when" => ["App\Http\Controllers\OrderController#"],
+        "route" => "/admins/orders",
         "icon" => array("type" => "lucide", "content" => "ShoppingCart"),
     ),
     array(

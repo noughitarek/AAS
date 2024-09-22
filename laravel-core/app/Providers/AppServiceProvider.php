@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
         }
         catch(\Exception $e)
         {
-            echo 'err';
+            abort('Error in booting settings or Facebook pages: ' . $e->getMessage());
         }
     }
 }

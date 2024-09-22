@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             InvestorSeeder::class,
             FundingSeeder::class,
             CitiesSeeder::class,
+            OrderSeeder::class,
         ]);
     }
 

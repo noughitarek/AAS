@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Commune extends Model
+class OrderProducts extends Model
 {
     use HasFactory;
-    
-    public function wilaya()
+    public function product()
     {
-        return $this->belongsTo(Wilaya::class);
+        return $this->belongsTo(Product::class);
     }
 }

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DeskController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FundingController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -71,6 +72,10 @@ Route::prefix("admins")->name('admins.')->group(function () {
         Route::prefix('advertisings')->name('advertisings.')->group(function() {
             Route::get('/', [AdvertisingController::class, 'index'])->name('index');
             Route::post('/save', [AdvertisingController::class, 'save'])->name('save');
+        });
+        Route::prefix('orders')->name('orders.')->group(function() {
+            Route::get('/', [OrderController::class, 'index'])->name('index');
+            Route::post('/save', [OrderController::class, 'save'])->name('save');
         });
         Route::prefix('users')->name('users.')->group(function() {
             Route::get('/', [UserController::class, 'index'])->name('index');
