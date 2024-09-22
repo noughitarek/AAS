@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\InvestorController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdvertisingController;
 use App\Http\Controllers\DeliveryMenController;
 use App\Http\Controllers\TrackingMessagesController;
 use App\Http\Controllers\AdminsAuth\PasswordController;
@@ -62,12 +63,15 @@ Route::prefix("admins")->name('admins.')->group(function () {
             Route::get('/{funding}', [FundingController::class, 'show'])->name('show');
             
             Route::post('/{funding}/purchase', [FundingController::class, 'purchase'])->name('purchase');
-            
+
             Route::get('/{funding}/edit', [FundingController::class, 'edit'])->name('edit');
             Route::put('/{funding}/edit', [FundingController::class, 'update'])->name('update');
             Route::delete('/{funding}/delete', [FundingController::class, 'destroy'])->name('destroy');
         });
-
+        Route::prefix('advertisings')->name('advertisings.')->group(function() {
+            Route::get('/', [AdvertisingController::class, 'index'])->name('index');
+            Route::post('/save', [AdvertisingController::class, 'save'])->name('save');
+        });
         Route::prefix('users')->name('users.')->group(function() {
             Route::get('/', [UserController::class, 'index'])->name('index');
             Route::get('/create', [UserController::class, 'create'])->name('create');

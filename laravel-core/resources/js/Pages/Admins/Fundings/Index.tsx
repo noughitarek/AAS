@@ -1,6 +1,6 @@
 import { Funding, Data, PageProps, Link } from "@/types";
 import AdminLayout from "@/Layouts/AdminLayout";
-import { Head, Link as InertiaLink, useForm } from "@inertiajs/react";
+import { Head, Link as InertiaLink, useForm, router } from "@inertiajs/react";
 import Page from "@/Components/Page";
 import { Button } from "@headlessui/react";
 import { AtSign, Box, Building2, Calendar, ChevronDown, DollarSign, Hash, Link as IconLink, Pencil, Search, SearchCheck, ShoppingCart, Trash2, User } from "lucide-react";
@@ -42,9 +42,9 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
 
     }, [search])
 
-    const purchase: FormEventHandler = (e) => {
+    const purchase: FormEventHandler = async (e) => {
         e.preventDefault();
-        post(route('admins.fundings.purchase', {funding: data.fundingId}));
+        await post(route('admins.fundings.purchase', {funding: data.fundingId}));
         setData({
             fundingId: 0,
             purchase_amount: 0,
@@ -52,6 +52,7 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
             purchased_at: new Date().toISOString().slice(0, 16),
         });
         setShowPurchaseModal(false)
+        router.get(route('admins.fundings.index'));
     };
     return (
         <>

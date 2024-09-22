@@ -71,8 +71,8 @@ return array(
     array(
         "type" => "link",
         "content" => "Advertisings",
-        "active_when" => ["App\Http\Controllers\DashboardController@"],
-        "route" => "/",
+        "active_when" => ["App\Http\Controllers\AdvertisingController#"],
+        "route" => "/admins/advertisings",
         "icon" => array("type" => "lucide", "content" => "Megaphone"),
     ),
     array(

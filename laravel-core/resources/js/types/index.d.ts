@@ -124,4 +124,9 @@ export interface Funding {
     updated_at: Date;
     created_by: User;
     updated_by: User;
+    daym2?: number;
+    daym1?: number;
+    day0?: number;
+    dayp1?: number;
+    dayp2?: number;
 }
