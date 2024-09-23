@@ -1,6 +1,6 @@
 import { Order, Data, PageProps, Link } from "@/types";
 import AdminLayout from "@/Layouts/AdminLayout";
-import { Head, Link as InertiaLink, useForm } from "@inertiajs/react";
+import { Head, Link as InertiaLink, router, useForm } from "@inertiajs/react";
 import Page from "@/Components/Page";
 import { Button } from "@headlessui/react";
 import { Archive, AtSign, Barcode, Box, Building2, Calendar, ChevronDown, DollarSign, Hash, Home, Link as IconLink, MapPin, Pencil, Phone, PinIcon, QrCode, Search, SearchCheck, ShoppingCart, Trash2, User, User2, UserCog } from "lucide-react";
@@ -8,16 +8,24 @@ import React, { useState, useEffect } from "react";
 import { lastActivityAt, lastActivityBy } from "@/types/functions";
 import DeleteModal from "@/Components/DeleteModal";
 import Grid from "@/Components/Grid";
+import { useRef } from 'react'
 
 const Orders: React.FC<PageProps<{ orders: Data<Order> }>> = ({auth, menu, orders}) => {
 
-    const { data, setData, delete: deleteFunction, processing } = useForm({orderId: 0});
-    const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+    const importOrdersRef = useRef<HTMLInputElement | null>(null);
+    const submitButtonRef = useRef<HTMLButtonElement | null>(null);
+    
+    const handleSubmit = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        submitButtonRef.current?.click()
+    };
+
+    const triggerFileSelect = () => {
+        importOrdersRef.current?.click();
+    };
+
     const [search, setSearch] = useState<string>("");
     const [activeOrders, setActiveOrders] = useState<Data<Order>>(orders);
-    const submit = () =>{
-        deleteFunction(route('admins.orders.destroy', data.orderId));
-    }
+    
     useEffect(()=>{
 
         if (search) {
@@ -36,6 +44,12 @@ const Orders: React.FC<PageProps<{ orders: Data<Order> }>> = ({auth, menu, order
     }, [search])
     return (
         <>
+            <form action={ route('admins.orders.import') } className='hidden' method="POST" encType="multipart/form-data">
+                <input type="hidden" name="_token" value={document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || ''} />
+                <input type="file" ref={importOrdersRef} onChange={handleSubmit} name="orders" accept=".xls,.xlsx" required />
+                <button ref={submitButtonRef} type="submit">Submit</button>
+            </form>
+
             <Head title="Orders" />
 
             <AdminLayout
@@ -51,7 +65,7 @@ const Orders: React.FC<PageProps<{ orders: Data<Order> }>> = ({auth, menu, order
                     </>}
             >
                 <Page title="Orders" header="">
-                    <Grid title="Orders" header={<button className="btn btn-primary">Import</button>}>
+                    <Grid title="Orders" header={<button onClick={triggerFileSelect} className="btn btn-primary">Import</button>}>
                         <div className="grid grid-cols-12 gap-6 mt-8">
                             <div className="col-span-12">
                                 <div className="intro-y overflow-auto">
@@ -81,9 +95,8 @@ const Orders: React.FC<PageProps<{ orders: Data<Order> }>> = ({auth, menu, order
                                                         <div className="flex items-center">
                                                             <Calendar className="h-4 w-4 text-gray-500 mr-1" />
                                                             <span className="text-sm text-gray-500">
-                                                                {new Date(
-                                                                    order.created_at
-                                                                ).toLocaleString(
+                                                                {
+                                                                    new Date(order.created_at).toLocaleString(
                                                                     "en-GB",
                                                                     {
                                                                         day: "2-digit",

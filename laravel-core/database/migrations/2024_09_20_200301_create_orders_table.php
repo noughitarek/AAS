@@ -35,6 +35,8 @@ return new class extends Migration
 
             $table->foreignId('funding_id')->nullable()->constrained('fundings');
 
+            $table->timestamp('confirmed_at')->nullable();
+
             $table->timestamp('validated_at')->nullable();
             $table->timestamp('shipped_at')->nullable();
             $table->timestamp('wilaya_at')->nullable();
