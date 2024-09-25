@@ -152,13 +152,13 @@ const Orders: React.FC<PageProps<{ orders: Data<Order> }>> = ({auth, menu, order
                                                         <div className="flex items-center">
                                                             <MapPin className="h-4 w-4 text-gray-500 mr-1" />
                                                             <span className="text-sm text-gray-500">
-                                                                {order.commune.name}
+                                                                {order.commune?.name ?? 'NA' }
                                                             </span>
                                                         </div>
                                                         <div className="flex items-center">
                                                             <PinIcon className="h-4 w-4 text-gray-500 mr-1" />
                                                             <span className="text-sm text-gray-500">
-                                                                {order.commune.wilaya.name}
+                                                                {order.commune?.wilaya.name ?? 'NA'}
                                                             </span>
                                                         </div>
                                                     </td>

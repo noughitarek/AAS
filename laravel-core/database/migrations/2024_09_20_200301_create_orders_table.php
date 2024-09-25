@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('phone2')->nullable();
             $table->string('address');
 
-            $table->foreignId('commune_id')->constrained('communes');
+            $table->foreignId('commune_id')->nullable()->constrained('communes');
 
             $table->integer('total_price');
             $table->integer('delivery_fee');

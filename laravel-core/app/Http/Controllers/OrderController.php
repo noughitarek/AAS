@@ -8,7 +8,8 @@ use App\Models\Order;
 use App\Models\Commune;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use PhpOffice\PhpSpreadsheet\IOFactory;
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 
@@ -39,35 +40,49 @@ class OrderController extends Controller
         $orders = $request->file('orders');
         $filename = time() . '_' . $orders->getClientOriginalName();
         $orders->move(public_path('storage/orders'), $filename);
-        $filePath = 'storage/orders/'.$filename;
-
-        $spreadsheet = IOFactory::load($filePath);
-        $sheet = $spreadsheet->getActiveSheet();
-        $data = $sheet->toArray();
-        print_r($data);
-        exit;
+        $filePath = public_path('storage/orders/' . $filename);
+    
+        $data = Excel::toArray([], $filePath)[0];
+        
         foreach($data as $index=>$order)
         {
-            $desk = Desk::where('reference', $order[9])->whereNull('deleted_by')->first();
-            $products = $ord[6];
+            if($index==0)continue;
+            
 
-            $orderData = [
-                'name' => $order[0]??"NaN",
-                'phone' => explode('/', $order[3])[0],
-                'phone2' => explode('/', $order[3])[1]??null,
-                'address' => $order[1]??"NaN",
-                'commune_id' => Commune::where('name',$order[5])->first()->id,
-                'total_price' =>  $order[7],
-                'delivery_fee' => Commune::where('name',$order[5])->first()->Wilaya()->delivery_price,
-                'clean_price' => $order[7]-Commune::where('name',$order[5])->first()->Wilaya()->delivery_price,
-                'intern_tracking' => $order[2],
-                'fragile' => true,
-                'stopdesk' => $order[12],
-                'desk_id' => $desk->id,
-            ];
+            $desk = Desk::where('reference', $order[9])->whereNull('deleted_by')->first();
+            $products = $order[6];
             
-            Order::create($orderData);
+            try {
+                // Extract phone numbers safely
+                $phones = explode('/', $order[3]);
+                $phone1 = $phones[0] ?? null;
+                $phone2 = $phones[1] ?? null;
             
+                $commune = Commune::where('name', $order[5])->first();
+                $communeId = $commune ? $commune->id : null;
+                
+                
+                $orderData = [
+                    'name' => $order[0] ?? "NaN",
+                    'phone' => $phone1,
+                    'phone2' => $phone2,
+                    'address' => $order[1] ?? "NaN",
+                    'commune_id' => $communeId,
+                    'total_price' => $order[7],
+                    'delivery_fee' => 0,
+                    'clean_price' => $order[7],
+                    'intern_tracking' => $order[2],
+                    'fragile' => true,
+                    'stopdesk' => $order[12],
+                    'desk_id' => $desk->id,
+                    'created_by' => Auth::id(),
+                    'updated_by' => Auth::id(),
+                ];
+                
+                Order::create($orderData);
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
         }
         return redirect()->route('admins.investors.index')->with('success', 'Investor deleted successfully.');
     }
