@@ -50,6 +50,9 @@ class OrderController extends Controller
             
 
             $desk = Desk::where('reference', $order[9])->whereNull('deleted_by')->first();
+            if(!$desk){
+                throw new \Exception('Unkown desk "'.$order[9].'"');
+            }
             $products = $order[6];
             
             try {
