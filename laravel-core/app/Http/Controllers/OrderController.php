@@ -6,7 +6,9 @@ use App\Models\Desk;
 use Inertia\Inertia;
 use App\Models\Order;
 use App\Models\Commune;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Models\OrderProducts;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -20,7 +22,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::with('createdBy', 'updatedBy', 'desk', 'commune.wilaya', 'orderProducts.product')->orderBy('id', 'desc')->paginate(10);
+        $orders = Order::whereNotNull('confirmed_at')->with('createdBy', 'updatedBy', 'desk', 'commune.wilaya', 'orderProducts.product')->orderBy('id', 'desc')->paginate(9999);
 
         return Inertia::render('Admins/Orders/Index', [
             'orders' => $orders
@@ -56,12 +58,14 @@ class OrderController extends Controller
             $products = $order[6];
             
             try {
-                // Extract phone numbers safely
                 $phones = explode('/', $order[3]);
                 $phone1 = $phones[0] ?? null;
                 $phone2 = $phones[1] ?? null;
             
-                $commune = Commune::where('name', $order[5])->first();
+                $commune = Commune::with('wilaya')->where('name', $order[5])->first();
+                if(!$commune){
+                    throw new \Exception('Unkown commune "'.$order[5].'"');
+                }
                 $communeId = $commune ? $commune->id : null;
                 
                 
@@ -72,7 +76,7 @@ class OrderController extends Controller
                     'address' => $order[1] ?? "NaN",
                     'commune_id' => $communeId,
                     'total_price' => $order[7],
-                    'delivery_fee' => 0,
+                    'delivery_fee' => $commune->wilaya->delivery_price,
                     'clean_price' => $order[7],
                     'intern_tracking' => $order[2],
                     'fragile' => true,
@@ -82,12 +86,49 @@ class OrderController extends Controller
                     'updated_by' => Auth::id(),
                 ];
                 
-                Order::create($orderData);
+                $orderDB = Order::create($orderData);
+
+                $charactersToRemove = array("-", "/", "\\");
+                $shouldBreak = false;
+                foreach(explode('+', $order[6]) as $product)
+                {
+                    $product = trim(str_replace($charactersToRemove, "", $product));
+                    $productQuantity = 1;
+                    $productRow = null;
+                    foreach(config('settings.quantities') as $quantity=>$label)
+                    {
+                        if($label != null)
+                        {
+                            if(strpos($product, $label) === 0)
+                            {
+                                $productQuantity = $quantity;
+                                $productsName = trim(explode($label, $product)[1]);
+                                $productRow = Product::where('name', 'like', '%'.$productsName.'%')->first();
+                            }
+                        }
+    
+                    }
+                    if(!$productRow)
+                    {
+                        $productsName = $product;
+                        $productRow = Product::where('name', 'like', '%'.$productsName.'%')->first();
+                    }
+                    if(!$productRow)
+                    {
+                        throw new \Exception('Unkown product "'.$product.'"');
+                    }
+                    OrderProducts::create([
+                        'order_id' =>  $orderDB->id,
+                        'product_id' => $productRow->id,
+                        'quantity' => $productQuantity,
+                    ]);
+                }
+
             } catch (Exception $e) {
                 echo $e->getMessage();
             }
         }
-        return redirect()->route('admins.investors.index')->with('success', 'Investor deleted successfully.');
+        return redirect()->route('admins.orders.imported')->with('success', 'Investor deleted successfully.');
     }
     
     /**
@@ -95,7 +136,12 @@ class OrderController extends Controller
      */
     public function imported()
     {
-        return Inertia::render('Admins/Dashboard/Index', []);
+        $orders = Order::whereNull('confirmed_at')
+        ->with('createdBy', 'updatedBy', 'desk', 'commune.wilaya', 'orderProducts.product')->orderBy('id', 'desc')->paginate(9999);
+
+        return Inertia::render('Admins/Orders/Imported', [
+            'orders' => $orders
+        ]);
 
     }
 

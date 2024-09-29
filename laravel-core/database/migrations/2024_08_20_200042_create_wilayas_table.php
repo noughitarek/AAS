@@ -16,6 +16,7 @@ return new class extends Migration
             
             $table->string('name');
             $table->string('name_ar')->nullable();
+            $table->integer('delivery_price')->default(0);
 
             $table->timestamps();
         });

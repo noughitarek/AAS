@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Wilaya extends Model
 {
     use HasFactory;
-
+    protected $fillable = ['delivery_price'];
     public function communes()
     {
         return $this->hasMany(Commune::class);
