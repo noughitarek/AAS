@@ -113,10 +113,8 @@ class OrderController extends Controller
                         $productsName = $product;
                         $productRow = Product::where('name', 'like', '%'.$productsName.'%')->first();
                     }
-                    if(!$productRow)
-                    {
-                        throw new \Exception('Unkown product "'.$product.'"');
-                    }
+                    if(!$productRow) throw new \Exception('Unkown product "'.$product.'"');
+                    
                     OrderProducts::create([
                         'order_id' =>  $orderDB->id,
                         'product_id' => $productRow->id,
