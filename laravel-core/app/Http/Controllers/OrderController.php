@@ -146,8 +146,17 @@ class OrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function save()
+    public function save(Request $request)
     {
-        //
+        foreach($request->all() as $orderID){
+            $order = Order::find($orderID);
+            if(!$order){
+                throw new \Exception('Order "'.$orderID.'" not found');
+            }
+            $order->confirmed_at = now();
+            $order->save();
+        }
+        
+        return redirect()->route('admins.orders.index')->with('success', 'Orders uploaded successfully.');
     }
 }

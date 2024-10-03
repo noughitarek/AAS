@@ -4,7 +4,7 @@ import { Head, Link as InertiaLink, router, useForm } from "@inertiajs/react";
 import Page from "@/Components/Page";
 import { Button } from "@headlessui/react";
 import { Archive, AtSign, Barcode, Box, Building2, Calendar, ChevronDown, DollarSign, Hash, Home, Link as IconLink, MapPin, Pencil, Phone, PinIcon, QrCode, Search, SearchCheck, ShoppingCart, Trash2, User, User2, UserCog } from "lucide-react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEventHandler } from "react";
 import { lastActivityAt, lastActivityBy } from "@/types/functions";
 import DeleteModal from "@/Components/DeleteModal";
 import Grid from "@/Components/Grid";
@@ -13,6 +13,12 @@ import { useRef } from 'react'
 const Orders: React.FC<PageProps<{ orders: Data<Order> }>> = ({auth, menu, orders}) => {
     const [search, setSearch] = useState<string>("");
     const [activeOrders, setActiveOrders] = useState<Data<Order>>(orders);
+    const { data, setData, post, processing, errors } = useForm<number[]>([]);
+    
+    useEffect(()=>{
+        const orderIds = activeOrders.data.map(order => order.id);
+        setData(orderIds);
+    }, [activeOrders])
     
     useEffect(()=>{
 
@@ -30,6 +36,11 @@ const Orders: React.FC<PageProps<{ orders: Data<Order> }>> = ({auth, menu, order
     
 
     }, [search])
+
+    const handleSubmit: FormEventHandler = (e) => {
+        e.preventDefault();
+        post(route('admins.orders.imported'));
+    };
     return (
         <>
             <Head title="Orders" />
@@ -47,7 +58,7 @@ const Orders: React.FC<PageProps<{ orders: Data<Order> }>> = ({auth, menu, order
                     </>}
             >
                 <Page title="Orders" header="">
-                    <Grid title="Orders" header=''>
+                    <Grid title="Orders" header={<button disabled={processing} onClick={handleSubmit} className="btn btn-primary">Save</button>}>
                         <div className="grid grid-cols-12 gap-6 mt-8">
                             <div className="col-span-12">
                                 <div className="intro-y overflow-auto">
@@ -66,7 +77,20 @@ const Orders: React.FC<PageProps<{ orders: Data<Order> }>> = ({auth, menu, order
                                         {
                                             activeOrders.data.map((order) => (
                                                 <tr key={order.id} className="intro-x">
-                                                    
+                                                    <td>
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            checked={data.includes(order.id)}
+                                                            onChange={(e) => {
+                                                                if (e.target.checked) {
+                                                                    setData(prevData => [...prevData, order.id]);
+                                                                } else {
+                                                                    setData(prevData => prevData.filter(id => id !== order.id));
+                                                                }
+                                                            }}
+                                                        />
+                                                    </td>
                                                     <td>
                                                         <div className="flex items-center">
                                                             <Hash className="h-4 w-4 text-gray-500 mr-1" />

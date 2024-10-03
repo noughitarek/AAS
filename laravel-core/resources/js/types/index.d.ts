@@ -146,6 +146,7 @@ export interface Order{
     fragile: number;
     stopdesk: number;
     desk_id: number;
+    desk: Desk;
     funding_id: number;
     validated_at: Date;
     shipped_at: Date;
