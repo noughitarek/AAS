@@ -45,13 +45,7 @@ return array(
         "route" => "/admins/orders",
         "icon" => array("type" => "lucide", "content" => "ShoppingCart"),
     ),
-    array(
-        "type" => "link",
-        "content" => "Stock",
-        "active_when" => ["App\Http\Controllers\DashboardController@"],
-        "route" => "/",
-        "icon" => array("type" => "lucide", "content" => "Boxes"),
-    ),
+    
     
     array("type" => "divider"),
     array(

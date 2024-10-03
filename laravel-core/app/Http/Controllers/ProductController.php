@@ -16,6 +16,10 @@ class ProductController extends Controller
     {
         $products = Product::with('createdBy', 'updatedBy')->orderBy('id', 'desc')->paginate(10);
 
+        foreach($products as $product){
+            $product->stock = $product->stock();
+        }
+
         return Inertia::render('Admins/Products/Index', ['products' => $products]);
     }
 

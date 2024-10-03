@@ -24,4 +24,17 @@ class Product extends Model
     {
         return $this->belongsTo(User::class, 'updated_by');
     }
+    
+    public function order_products()
+    {
+        return $this->hasMany(OrderProducts::class);
+    }
+    public function purshases()
+    {
+        return $this->hasManyThrough(FundingPurchase::class, Funding::class);
+    }
+    public function stock()
+    {
+        return $this->purshases->sum('purchase_quantity') - $this->order_products->sum('quantity');
+    }
 }

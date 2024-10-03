@@ -3,7 +3,7 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import { Head, Link as InertiaLink, useForm } from "@inertiajs/react";
 import Page from "@/Components/Page";
 import { Button } from "@headlessui/react";
-import { Building2, Calendar, ChevronDown, Hash, Link as IconLink, Pencil, Search, SearchCheck, Trash2, User } from "lucide-react";
+import { Boxes, Building2, Calendar, ChevronDown, Hash, Link as IconLink, Pencil, Search, SearchCheck, Trash2, User } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { lastActivityAt, lastActivityBy } from "@/types/functions";
 import DeleteModal from "@/Components/DeleteModal";
@@ -93,6 +93,9 @@ const Products: React.FC<PageProps<{ products: Data<Product> }>> = ({auth, menu,
                                                 Created
                                             </th>
                                             <th className="whitespace-nowrap">
+                                                Stock
+                                            </th>
+                                            <th className="whitespace-nowrap">
                                                 Action
                                             </th>
                                         </tr>
@@ -120,6 +123,14 @@ const Products: React.FC<PageProps<{ products: Data<Product> }>> = ({auth, menu,
                                                         <SearchCheck className="h-4 w-4 text-gray-500 mr-1" />
                                                         <span className="text-sm text-gray-500">
                                                             {product.reference}
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div className="flex items-center">
+                                                        <Boxes className="h-4 w-4 text-gray-500 mr-1" />
+                                                        <span className="text-sm text-gray-500">
+                                                            {product.stock}
                                                         </span>
                                                     </div>
                                                 </td>
