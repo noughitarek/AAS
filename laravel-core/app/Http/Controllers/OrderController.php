@@ -22,7 +22,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::whereNotNull('confirmed_at')->with('createdBy', 'updatedBy', 'desk', 'commune.wilaya', 'orderProducts.product')->orderBy('id', 'desc')->paginate(9999);
+        $orders = Order::whereNotNull('confirmed_at')
+        ->whereNull('returned_ready_at')
+        ->whereNull('recovered_at')
+        ->with('createdBy', 'updatedBy', 'desk', 'commune.wilaya', 'orderProducts.product')
+        ->orderBy('id', 'desc')
+        ->paginate(9999);
 
         return Inertia::render('Admins/Orders/Index', [
             'orders' => $orders
