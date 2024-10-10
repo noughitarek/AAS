@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('phone2')->nullable();
             $table->string('address');
 
-            
             $table->foreignId('commune_id')->constrained('communes');
+            $table->foreignId('order_id')->nullable()->constrained('orders');
 
             $table->integer('total_price');
             $table->integer('delivery_price');
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('tracking')->unique()->nullable();
             $table->boolean('stopdesk')->default(0);
             
-            $table->foreignId('invoice_id')->constrained('invoicers');
+            $table->foreignId('invoice_id')->constrained('invoices');
 
             $table->string('facebook_conversation_id')->nullable();
             $table->text('products')->nullable();

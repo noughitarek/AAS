@@ -170,3 +170,12 @@ export interface OrderProducts{
     product: Product;
     order: Order;
 }
+
+export interface Invoice{
+    id: number;
+    order_id: number;
+    order: Order;
+    product_id: number;
+    product: Product;
+    quantity: number;
+}

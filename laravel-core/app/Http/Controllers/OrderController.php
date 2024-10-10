@@ -44,6 +44,7 @@ class OrderController extends Controller
         ]);
         
         Order::whereNull('confirmed_at')->delete();
+        
         $orders = $request->file('orders');
         $filename = time() . '_' . $orders->getClientOriginalName();
         $orders->move(public_path('storage/orders'), $filename);

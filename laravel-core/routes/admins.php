@@ -5,6 +5,7 @@ use App\Http\Controllers\DeskController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FundingController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SettingController;
@@ -78,6 +79,12 @@ Route::prefix("admins")->name('admins.')->group(function () {
             Route::post('/import', [OrderController::class, 'import'])->name('import');
             Route::get('/imported', [OrderController::class, 'imported'])->name('imported');
             Route::post('/imported', [OrderController::class, 'save']);
+        });
+        Route::prefix('invoices')->name('invoices.')->group(function() {
+            Route::get('/', [InvoiceController::class, 'index'])->name('index');
+            Route::post('/import', [InvoiceController::class, 'import'])->name('import');
+            Route::get('/imported', [InvoiceController::class, 'imported'])->name('imported');
+            Route::post('/imported', [InvoiceController::class, 'save']);
         });
         Route::prefix('users')->name('users.')->group(function() {
             Route::get('/', [UserController::class, 'index'])->name('index');

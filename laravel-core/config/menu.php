@@ -72,8 +72,8 @@ return array(
     array(
         "type" => "link",
         "content" => "Invoices",
-        "active_when" => ["App\Http\Controllers\DashboardController@"],
-        "route" => "/",
+        "active_when" => ["App\Http\Controllers\InvoiceController#"],
+        "route" => "/admins/invoices",
         "icon" => array("type" => "lucide", "content" => "ClipboardList"),
     ),
     
