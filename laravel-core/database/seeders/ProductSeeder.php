@@ -26,6 +26,114 @@ class ProductSeeder extends Seeder
                 'created_by' => 1,
                 'updated_by' => 1,
             ],
+            [
+                'name' => 'Ultrasonic cleaner الغسالة الصغيرة',
+                'reference' => null,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+            [
+                'name' => 'فريتوز صوليد ايطالية المشبك',
+                'reference' => null,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+            [
+                'name' => 'بخاخ 1 لتر',
+                'reference' => null,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+            [
+                'name' => 'بخاخ 250 ملل',
+                'reference' => null,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+            [
+                'name' => 'باكي كسرونات ثقال موشتي',
+                'reference' => null,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+            [
+                'name' => 'مسك أسود سعودي',
+                'reference' => null,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+            [
+                'name' => 'زيت الإنشراح',
+                'reference' => null,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+            [
+                'name' => 'بخاخ نصف لتر',
+                'reference' => null,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+            [
+                'name' => 'زيت الحبة السوداء',
+                'reference' => null,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+            [
+                'name' => 'زيت التيسير s',
+                'reference' => null,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+            [
+                'name' => 'd proj',
+                'reference' => null,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+            [
+                'name' => 'فريتوز b',
+                'reference' => null,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+            [
+                'name' => 'كسرونات w',
+                'reference' => null,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+            [
+                'name' => 'كولي المسمنة',
+                'reference' => null,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+            [
+                'name' => 'بخاخ السدر',
+                'reference' => null,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+            [
+                'name' => 'بخاخ المسك الأبيض',
+                'reference' => null,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+            [
+                'name' => 'بخاخ ربع لتر',
+                'reference' => null,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ],
+            [
+                'name' => 'كريمة ل ذ',
+                'reference' => null,
+                'created_by' => 1,
+                'updated_by' => 1,
+            ]
         ];
         DB::table('products')->insert($products);
     }

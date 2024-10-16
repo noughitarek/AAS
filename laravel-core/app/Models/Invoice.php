@@ -13,4 +13,9 @@ class Invoice extends Model
         'total_orders',
         'desk_id',
     ];
+
+    public function Desk()
+    {
+        return $this->belongsTo(Desk::class);
+    }
 }

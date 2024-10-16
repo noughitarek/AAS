@@ -18,7 +18,7 @@ class DeskSeeder extends Seeder
         $desks = [
             [
                 'name' => 'Packers Alger',
-                'reference' => "desk1",
+                'reference' => "العاصمة packers",
                 'from_stock' => true,
                 'ecotrack_idf' => Str::random(10),
                 'ecotrack_token' => Str::random(50),

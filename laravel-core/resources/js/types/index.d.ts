@@ -170,9 +170,12 @@ export interface OrderProducts{
     product: Product;
     order: Order;
 }
-
 export interface Invoice{
     id: number;
+    desk: Desk;
+    desk_id: number;
+    total_amount: number;
+    total_orders: number;
     order_id: number;
     order: Order;
     product_id: number;

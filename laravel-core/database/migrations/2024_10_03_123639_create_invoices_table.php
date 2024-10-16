@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer("total_amount")->nullable();
             $table->integer("total_orders")->nullable();
             
-            $table->foreignId('desk_id')->constrained('desks');
+            $table->foreignId('desk_id')->nullable()->constrained('desks');
 
             $table->timestamps();
         });

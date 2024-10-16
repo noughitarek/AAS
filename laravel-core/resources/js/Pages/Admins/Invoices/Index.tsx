@@ -3,7 +3,7 @@ import AdminLayout from "@/Layouts/AdminLayout";
 import { Head, Link as InertiaLink, router, useForm } from "@inertiajs/react";
 import Page from "@/Components/Page";
 import { Button } from "@headlessui/react";
-import { Archive } from "lucide-react";
+import { Archive, Building, DollarSign, Hash, ShoppingBag } from "lucide-react";
 import React, { useState, useEffect } from "react";
 import { lastActivityAt, lastActivityBy } from "@/types/functions";
 import DeleteModal from "@/Components/DeleteModal";
@@ -66,6 +66,45 @@ const Invoices: React.FC<PageProps<{ invoices: Data<Invoice> }>> = ({auth, menu,
                                         {
                                             activeInvoices.data.map((invoice) => (
                                                 <tr key={invoice.id} className="intro-x">
+                                                    
+                                                    <td>
+                                                        <div className="flex items-center">
+                                                            <Hash className="h-4 w-4 text-gray-500 mr-1" />
+                                                            <span className="text-sm text-gray-500">
+                                                                {invoice.id}
+                                                            </span>
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        <div className="flex items-center">
+                                                            <DollarSign className="h-4 w-4 text-gray-500 mr-1" />
+                                                            <span className="text-sm text-gray-500">
+                                                                {invoice.total_amount} DZD
+                                                            </span>
+                                                        </div>
+                                                        <div className="flex items-center">
+                                                            <ShoppingBag className="h-4 w-4 text-gray-500 mr-1" />
+                                                            <span className="text-sm text-gray-500">
+                                                                {invoice.total_orders}
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div className="flex items-center">
+                                                            <Building className="h-4 w-4 text-gray-500 mr-1" />
+                                                            <span className="text-sm text-gray-500">
+                                                            {
+                                                                invoice.desk && (
+                                                                    <InertiaLink href={route('admins.desks.show', { desk: invoice.desk_id })}>
+                                                                        {invoice.desk?.name || 'N/A'}
+                                                                    </InertiaLink>
+                                                                )
+                                                            }
+                                                                
+                                                            </span>
+                                                        </div>
+                                                    </td>
                                                     
                                                     <td>
                                                         <button className="btn btn-warning">

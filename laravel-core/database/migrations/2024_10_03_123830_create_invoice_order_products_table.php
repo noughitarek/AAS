@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('invoice_order_products', function (Blueprint $table) {
             $table->id();
             
-            $table->foreignId('order_id')->constrained('orders');            
+            $table->foreignId('order_id')->constrained('invoice_orders');            
             $table->foreignId('product_id')->constrained('products');
 
             $table->integer('quantity')->default(1);

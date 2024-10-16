@@ -26,7 +26,7 @@ return new class extends Migration
             $table->integer('delivery_price');
             $table->integer('clean_price');
             $table->integer('recovered');
-            $table->string('tracking')->unique()->nullable();
+            $table->string('tracking')->nullable();
             $table->boolean('stopdesk')->default(0);
             
             $table->foreignId('invoice_id')->constrained('invoices');

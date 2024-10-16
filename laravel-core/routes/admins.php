@@ -77,8 +77,6 @@ Route::prefix("admins")->name('admins.')->group(function () {
         Route::prefix('orders')->name('orders.')->group(function() {
             Route::get('/', [OrderController::class, 'index'])->name('index');
             Route::post('/import', [OrderController::class, 'import'])->name('import');
-            Route::get('/imported', [OrderController::class, 'imported'])->name('imported');
-            Route::post('/imported', [OrderController::class, 'save']);
         });
         Route::prefix('invoices')->name('invoices.')->group(function() {
             Route::get('/', [InvoiceController::class, 'index'])->name('index');
