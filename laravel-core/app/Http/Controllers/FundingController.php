@@ -81,6 +81,18 @@ class FundingController extends Controller
      */
     public function show(Funding $funding)
     {
+        $funding = Funding::with('createdBy', 'updatedBy', 'investor', 'desk', 'product', 'purchases')
+            ->find($funding->id);
+
+        $funding->totalPurchaseAmount = $funding->purchases->sum('purchase_amount');
+        $funding->totalPurchaseQuantity = $funding->purchases->sum('purchase_quantity');
+        $firstPurchase = $funding->purchases->sortBy('purchased_at')->first();
+        $funding->firstPurchaseAt = $firstPurchase ? $firstPurchase->purchased_at : null;
+
+        $funding->totalAdvertisements = $funding->advertisements->sum('advertisement_amount');
+        $firstAdvertisement = $funding->advertisements->sortBy('day')->first();
+        $funding->firstAdvertisementAt = $firstAdvertisement ? $firstAdvertisement->day : null;
+        
         return Inertia::render('Admins/Fundings/Show', ['funding' => $funding]);
     }
 

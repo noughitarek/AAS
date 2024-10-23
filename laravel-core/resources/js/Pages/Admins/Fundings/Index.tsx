@@ -132,36 +132,42 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
                                     </thead>
                                     <tbody>
                                         {activeFundings.data.map((funding) => (
-                                            <tr
-                                                key={funding.id}
-                                                className="intro-x"
-                                            >
-                                                <td>
-                                                    <div className="flex items-center">
-                                                        <Hash className="h-4 w-4 text-gray-500 mr-1" />
-                                                        <span className="text-sm text-gray-500">
-                                                            {funding.id}
-                                                        </span>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <Building2 className="h-4 w-4 text-gray-500 mr-1" />
-                                                        <span className="text-sm text-gray-500">
-                                                            {funding.investor.name}
-                                                        </span>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <AtSign className="h-4 w-4 text-gray-500 mr-1" />
-                                                        <span className="text-sm text-gray-500">
-                                                            {funding.investor.email}
-                                                        </span>
-                                                    </div>
-                                                    <div className="flex items-center">
-                                                        <Box className="h-4 w-4 text-gray-500 mr-1" />
-                                                        <span className="text-sm text-gray-500">
-                                                            {funding.product.name}
-                                                        </span>
-                                                    </div>
-                                                </td>
+                                            <tr className="intro-x">
+                                                
+                                                    <td>
+                                                        <InertiaLink 
+                                                            href={route(
+                                                                "admins.fundings.show",
+                                                                { funding: funding.id }
+                                                            )}
+                                                            key={funding.id}
+                                                        >
+                                                            <div className="flex items-center">
+                                                                <Hash className="h-4 w-4 text-gray-500 mr-1" />
+                                                                <span className="text-sm text-gray-500">
+                                                                    {funding.id}
+                                                                </span>
+                                                            </div>
+                                                        </InertiaLink>
+                                                        <div className="flex items-center">
+                                                            <Building2 className="h-4 w-4 text-gray-500 mr-1" />
+                                                            <span className="text-sm text-gray-500">
+                                                                {funding.investor.name}
+                                                            </span>
+                                                        </div>
+                                                        <div className="flex items-center">
+                                                            <AtSign className="h-4 w-4 text-gray-500 mr-1" />
+                                                            <span className="text-sm text-gray-500">
+                                                                {funding.investor.email}
+                                                            </span>
+                                                        </div>
+                                                        <div className="flex items-center">
+                                                            <Box className="h-4 w-4 text-gray-500 mr-1" />
+                                                            <span className="text-sm text-gray-500">
+                                                                {funding.product.name}
+                                                            </span>
+                                                        </div>
+                                                    </td>
                                                 <td>
                                                     {
                                                         !funding.firstPurchaseAt && (
@@ -175,7 +181,7 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
                                                             Total: {funding.products_part} DZD
                                                         </span>
                                                     </div>
-                                                    <div className="flex items-center">
+                                                    {/*<div className="flex items-center">
                                                         <span className="text-sm text-gray-500">
                                                             Used: {funding.totalPurchaseAmount} DZD
                                                         </span>
@@ -205,6 +211,7 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
                                                             {!funding.firstPurchaseAt && 'N/A'}
                                                         </span>
                                                     </div>
+                                                    */}
                                                 </td>
                                                 <td>
                                                     {
@@ -219,6 +226,7 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
                                                             Total: {funding.advertising_part} DZD
                                                         </span>
                                                     </div>
+                                                    {/*
                                                     <div className="flex items-center">
                                                         <span className="text-sm text-gray-500">
                                                             Used: {funding.totalAdvertisements} DZD
@@ -248,6 +256,7 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
                                                             First order at: N/A
                                                         </span>
                                                     </div>
+                                                    */}
                                                 </td>
                                                 <td>
                                                     <div className="flex items-center">
@@ -255,6 +264,7 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
                                                             Total: {funding.workers_part} DZD
                                                         </span>
                                                     </div>
+                                                    {/*
                                                     <div className="flex items-center">
                                                         <span className="text-sm text-gray-500">
                                                             Used: 0 DZD
@@ -265,8 +275,10 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
                                                             Unused: {funding.workers_part} DZD
                                                         </span>
                                                     </div>
+                                                    */}
                                                 </td>
                                                 <td>
+                                                    {/*
                                                     <div className="flex items-center">
                                                         <span className="text-sm text-gray-500">
                                                             First cashed at: N/A
@@ -277,11 +289,13 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
                                                             Quantity: 0
                                                         </span>
                                                     </div>
+                                                    */}
                                                     <div className="flex items-center">
                                                         <span className="text-sm text-gray-500">
                                                             Total: 0 DZD
                                                         </span>
                                                     </div>
+                                                    {/*
                                                     <div className="flex items-center">
                                                         <span className="text-sm text-gray-500">
                                                             Product: 0 DZD
@@ -302,6 +316,7 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
                                                             Rate: 0%
                                                         </span>
                                                     </div>
+                                                    */}
                                                 </td>
                                                 <td>
                                                     <div className="flex items-center">
@@ -359,8 +374,8 @@ const Fundings: React.FC<PageProps<{ fundings: Data<Funding> }>> = ({auth, menu,
                                                     }}>
                                                         <Trash2 className="w-4 h-4" />
                                                     </Button>
-                                                </td>
-                                            </tr>
+                                            </td>
+                                        </tr>
                                         ))}
                                     </tbody>
                                 </table>
