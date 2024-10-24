@@ -5,10 +5,10 @@ import { Investor, User } from '@/types';
 import { Link } from '@inertiajs/react';
 
 interface TopbarProps{
-    user: User;
+    investor: Investor;
     breadcrumb?: ReactNode;
 }
-const Topbar: React.FC<TopbarProps> = ({ breadcrumb, user }) => {
+const Topbar: React.FC<TopbarProps> = ({ breadcrumb, investor }) => {
     const [searchActive, setSearchActive] = useState(false)
     const [align, setAlign] = useState<"right" | "left">("right");
 
@@ -212,8 +212,7 @@ const Topbar: React.FC<TopbarProps> = ({ breadcrumb, user }) => {
                     <div className='dropdown-menu w-56 show'>
                         <ul className="dropdown-content bg-primary text-white">
                             <li className="p-2">
-                                <div className="font-medium">{user.name}</div>
-                                <div className="text-xs text-white/70 mt-0.5 dark:text-slate-500">{user.role}</div>
+                                <div className="font-medium">{investor.name}</div>
                             </li>
                             <li>
                                 <hr className="dropdown-divider border-white/[0.08]"/>

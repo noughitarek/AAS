@@ -17,15 +17,7 @@ class InvestorSeeder extends Seeder
         $investors = [
             [
                 'name' => 'Ahmed',
-                'email' => 'ahnedmoussaoui@gmail.com',
-                'password' => Hash::make('password'),
-                'permissions' => '',
-                'created_by' => 1,
-                'updated_by' => 1,
-            ],
-            [
-                'name' => 'Tarek',
-                'email' => 'noughitarek@gmail.com',
+                'email' => 'investor@gmail.com',
                 'password' => Hash::make('password'),
                 'permissions' => '',
                 'created_by' => 1,

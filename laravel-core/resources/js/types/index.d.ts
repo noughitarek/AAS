@@ -18,6 +18,7 @@ type DynamicSetting = {
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     auth: {
         user: User;
+        investor: Investor;
     };
     menu: MenuItem[];
     settings?: DynamicSetting;

@@ -13,6 +13,10 @@ class DashboardController extends Controller
     {
         $products = Product::with('createdBy', 'updatedBy')->orderBy('id', 'desc')->get();
 
-        return Inertia::render('Admins/Dashboard/Index', []);
+        return Inertia::render('Admins/Dashboard/Index');
+    }
+    public function investor_index()
+    {
+        return Inertia::render('Investors/Dashboard/Index');
     }
 }

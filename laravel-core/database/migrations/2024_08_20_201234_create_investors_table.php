@@ -29,6 +29,21 @@ return new class extends Migration
             
             $table->timestamps();
         });
+
+        Schema::create('investors_password_reset_tokens', function (Blueprint $table) {
+            $table->string('email')->primary();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
+        });
+
+        Schema::create('investors_sessions', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->foreignId('investor_id')->nullable()->index();
+            $table->string('ip_address', 45)->nullable();
+            $table->text('user_agent')->nullable();
+            $table->longText('payload');
+            $table->integer('last_activity')->index();
+        });
     }
 
     /**
@@ -37,5 +52,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('investors');
+        Schema::dropIfExists('investors_password_reset_tokens');
+        Schema::dropIfExists('investors_sessions');
     }
 };
