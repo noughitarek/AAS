@@ -21,6 +21,7 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
         investor: Investor;
     };
     menu: MenuItem[];
+    investor_menu: MenuItem[];
     settings?: DynamicSetting;
 };
 

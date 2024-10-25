@@ -233,7 +233,7 @@ const Topbar: React.FC<TopbarProps> = ({ breadcrumb, investor }) => {
                                 <hr className="dropdown-divider border-white/[0.08]"/>
                             </li>
                             <li>
-                                <Link href={route('admins.logout')} method="post" className="dropdown-item hover:bg-white/5"> <ToggleRight className="w-4 h-4 mr-2"/> Logout </Link>
+                                <Link href={route('investors.logout')} method="post" className="dropdown-item hover:bg-white/5"> <ToggleRight className="w-4 h-4 mr-2"/> Logout </Link>
                             </li>
                         </ul>
                     </div>

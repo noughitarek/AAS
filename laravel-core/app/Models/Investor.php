@@ -2,15 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 
-class Investor extends Model implements AuthenticatableContract
+class Investor extends Authenticatable implements AuthenticatableContract
 {
-    use HasFactory, SoftDeletes, AuthenticatableTrait;
+    use HasFactory, SoftDeletes, Notifiable, AuthenticatableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -26,6 +28,24 @@ class Investor extends Model implements AuthenticatableContract
         'updated_by',
         'deleted_by',
     ];
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
     public function createdBy()
     {
         return $this->belongsTo(User::class, 'created_by');

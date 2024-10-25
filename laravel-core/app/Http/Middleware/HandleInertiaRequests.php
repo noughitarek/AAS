@@ -92,7 +92,7 @@ class HandleInertiaRequests extends Middleware
                 'user' => $user,
                 'investor' => $investor,
             ],
-            'menu' => $user_menu ?? $investor_menu,
+            'menu' => $user_menu ?? [],
             'investor_menu' => $investor_menu  ?? [],
             'settings' => config('settings')
         ];

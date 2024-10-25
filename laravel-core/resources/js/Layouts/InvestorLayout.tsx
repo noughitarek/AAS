@@ -14,7 +14,7 @@ interface InvestorLayoutProps {
 
 
 const InvestorLayout: React.FC<InvestorLayoutProps> = ({ investor, menu, breadcrumb, children  }) => {
-    
+
     return (
         <>
             <MobileMenu menuItems={menu}/>

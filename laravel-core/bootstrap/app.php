@@ -13,12 +13,15 @@ $app = Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->redirectGuestsTo(fn (Request $request) => route('admins.login'));
+        #$middleware->redirectGuestsTo(fn (Request $request) => route('admins.login'));
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
         ]);
 
+        $middleware->alias([
+            'auth' => \App\Http\Middleware\RedirectIfNotAdmin::class,
+        ]);
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
