@@ -377,7 +377,9 @@ const FundingShow: React.FC<PageProps<{ funding: Funding }>> = ({auth, menu, fun
                                         <div className="flex">
                                             <div className="ml-auto">
                                                 <div className="report-box__indicator bg-primary tooltip cursor-pointer">
-                                                100 %
+                                                {funding.totalDeliveredOrders !== 0 
+                                                ? (100-funding.totalInvoicesOrders / funding.totalDeliveredOrders * 100).toFixed(0) 
+                                                : "N/A"} %
                                                 </div>
                                             </div>            
                                         </div>   
