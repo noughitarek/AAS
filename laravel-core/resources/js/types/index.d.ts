@@ -111,6 +111,15 @@ export interface Funding {
     totalAdvertisements: number;
     firstAdvertisementAt: Date | null;
 
+    firstOrderAt:  Date | null;
+    totalOrders: number;
+    totalDeliveredOrders: number;
+    totalReturnedOrders: number;
+    totalPendingOrders: number;
+
+    firstInvoiceAt: Date | null;
+    totalInvoicesOrders: number;
+    
     advertising_percentage: number;
     advertising_part: number;
     workers_percentage: number;

@@ -58,4 +58,12 @@ class Funding extends Model
     {
         return $this->hasMany(FundingAdvertisement::class);
     }
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+    public function invoices_orders()
+    {
+        return $this->hasManyThrough(InvoiceOrders::class, Order::class);
+    }
 }

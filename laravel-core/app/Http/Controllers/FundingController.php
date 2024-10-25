@@ -93,6 +93,17 @@ class FundingController extends Controller
         $firstAdvertisement = $funding->advertisements->sortBy('day')->first();
         $funding->firstAdvertisementAt = $firstAdvertisement ? $firstAdvertisement->day : null;
         
+        $firstOrder = $funding->orders->sortBy('validated_at')->first();
+        $funding->firstOrderAt = $firstOrder ? $firstOrder->validated_at : null;
+        $funding->totalOrders = $funding->orders->count();
+        $funding->totalReturnedOrders = $funding->orders->count();
+        $funding->totalDeliveredOrders = $funding->orders->count();
+        $funding->totalPendingOrders = $funding->orders->count();
+
+        $firstInvoice = $funding->invoices_orders->sortBy('created_at')->first();
+        $funding->firstInvoiceAt = $firstInvoice ? $firstInvoice->created_at : null;
+        $funding->totalInvoicesOrders = $funding->invoices_orders->count();
+        
         return Inertia::render('Admins/Fundings/Show', ['funding' => $funding]);
     }
 
